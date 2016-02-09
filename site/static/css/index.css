@@ -1,0 +1,132 @@
+
+
+/* 禁止webkit横屏改变字体大小 */
+html{
+	-webkit-text-size-adjust:100%;
+	-ms-text-size-adjust:100%;
+}
+
+*{padding:0px; margin:0px;border:none;}
+i,b{font-style:normal;}img{ max-width:100%;}
+a{color:#444444; text-decoration:none;}
+a:hover{text-decoration:none; color:#444444;}
+li{overflow:hidden; list-style-type:none;}
+body{ background:url("http://7q5cas.com1.z0.glb.clouddn.com/1.jpg"); 
+background-position:'center';
+background-size:cover;
+ background-repeat:no-repeat;
+ overflow-x:hidden;
+ position:relative;
+ background-attachment:fixed;}
+
+
+
+/* 清除浮动 */
+.clearfix:after{visibility: hidden;display: block;font-size: 0;content:" ";clear: both;height: 0;}
+.clearfix{*zoom:1;}
+.wrap{ margin:0 auto;max-width:600px;position:relative;}
+
+/* 产品列表 */
+.productList ul{ width:100%; }
+.productList ul li{border:solid 1px #e5e6e6; 
+ border-top:solid 1px #FFF;
+ background:#FFF;
+ margin:1.8em; padding:1em;border-radius: 10px; 
+background-color:rgba(255,255,255,.75);}
+
+.productList ul li .msg{ font:40 1.1em/1.1em 'microsoft yahei'; color:#A0A0A0; height:0.6em; margin:0.5em 0 0.3em 0.5em;}
+.productList ul li .msg span{ display:block;}
+.productList ul li .msg .time{ float:right;color:#696969}
+.list-group-item{ border:none;border-radius: 5px; background-color:rgba(255,255,255,.05);
+ }
+
+
+.bootstrap-frm {
+margin:0 auto 30px;
+max-width:600px;
+
+padding: 20px 30px 20px 30px;
+font: 12px "microsoft yahei", Helvetica, Arial, sans-serif;
+color: #888;
+width:80%;
+border-top:1px solid #DDD;
+border-bottom:1px solid #DDD;
+
+}
+
+.pagenavigation{text-align:center;}
+.pagecolor{
+background-color:rgba(255,255,255,.15);}
+
+
+.bootstrap-frm h1 {
+font: 20px  "microsoft yahei",Helvetica, Arial, sans-serif;
+padding: 0px 0px 10px 0px;
+display: block;
+border-bottom: 1px solid #DADADA;
+margin: -10px -30px 20px -30px;
+color: #000000;
+text-align:center;
+color:#fff;
+}
+.bootstrap-frm h1>span {
+display: block;
+
+font-size: 11px;
+}
+.bootstrap-frm label {
+display: block;
+margin: 0px 0px 5px;
+
+}
+.bootstrap-frm label>span {
+float: left;
+width: 20%;
+text-align: right;
+padding-right: 10px;
+margin-top: 10px;
+font-size:13px;
+color: #fff;
+font-family: "microsoft yahei", Helvetica, Arial, sans-serif;
+font-weight: lighter;
+}
+.bootstrap-frm input[type="text"], .bootstrap-frm textarea{
+border: 1px solid #CCC;
+color: #fff;
+font-weight: lighter;
+height: 30px;
+background-color:#fff;
+*background-color:transparent;
+background-color:rgba(255,255,255,.15);
+line-height:15px;
+margin-bottom: 16px;
+margin-right: 6px;
+margin-top: 2px;
+outline: 0 none;
+padding: 5px 0px 5px 5px;
+width: 70%;
+border-radius: 4px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.bootstrap-frm textarea{
+height:100px;
+padding: 5px 0px 0px 5px;
+width: 70%;
+}
+.bootstrap-frm .button {
+background: #FFF;
+border: 1px solid #CCC;
+padding: 10px 25px 10px 25px;
+color: #333;
+border-radius: 4px;
+}
+.bootstrap-frm .button:hover {
+color: #333;
+background-color: #EBEBEB;
+border-color: #ADADAD;
+}

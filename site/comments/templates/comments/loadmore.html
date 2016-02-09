@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>outshine-</title>
+
+    <!-- Bootstrap -->
+   <!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../static/css/index.css" type="text/css"  />
+
+   <script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
+
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+	<style>
+	.up{width:54px;height:54px;background:url(../../static/images/topback.gif) no-repeat 0 0;filter:alpha(Opacity=40);-moz-opacity:0.4;opacity: 0.4;}
+	</style>
+
+      <script type="text/javascript" src="../../static/js/scrolltopcontrol.js"></script>
+      <script>
+            $(document).ready(function(){
+              $("#hello").click(function(){
+                $("#div1").html("this is first demo   ---");
+                 $("#getmore").text("get more");
+                $("#div1").append(
+            "this is the out context"
+        );
+              });
+            });
+       </script>
+
+    <script>
+        $(document).ready(function(){
+        $("#getmore").click(function(){
+        $("#getmore").text("get more");
+        $post("home/",{"page":2}function(postlist){
+        $("#ul").load(postlist);
+        });
+        });
+        });
+
+
+    </script>
+
+  </head>
+<body>
+<div class="productList wrap clearfix" id="ul">
+    <ul class="clearfix" >
+
+          {%for comment in commentList %}
+      <li>
+		<div class="list-group"  data-toggle="modal" data-target="#exampleModal" data-whatever="{{comment.id}}">
+		  <a  class="list-group-item" >
+			<h4 class="list-group-item-heading" >{{comment.id}} : {{comment.name}}</h4>
+			<p class="list-group-item-text" id="content">{{comment.contents}}</p>
+		  </a>
+		   <div class="msg">
+          	<span class="time">{{comment.updated|date:'Y日m月d日H点'}}</span>
+          </div>
+		</div>
+		</li>
+    {% endfor %}
+        <div id="postlist"></div>
+
+  </ul>
+
+</div>
+
+<div class="pagenavigation">
+    <button class="btn btn-lg" id="getmore" >more...</button>
+		<ul class="pager">
+
+        {% if commentList.has_next %}
+		  <li><a>loading more</a></li>
+        {% endif %}
+		</ul>
+    </div>
+<div>
+</div>
+<div id="div1"><h2>使用 jQuery AJAX 来改变文本</h2></div>
+<button id="hello">获得外部内容</button>
+
+</body>
+</html>

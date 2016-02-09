@@ -1,0 +1,20 @@
+
+    <ul class="clearfix" >
+
+          {%for comment in commentList %}
+      <li>
+		<div class="list-group"  data-toggle="modal" data-target="#exampleModal" data-whatever="{{comment.id}}">
+		  <a  class="list-group-item" >
+			<h4 class="list-group-item-heading" >{{comment.id}} : {{comment.name}}</h4>
+			<p class="list-group-item-text" id="content">{{comment.contents}}</p>
+		  </a>
+		   <div class="msg">
+          	<span class="time">{{comment.updated|date:'Y日m月d日H点'}}</span>
+          </div>
+		</div>
+		</li>
+    {% endfor %}
+        <div id="postlist"></div>
+
+  </ul>
+
