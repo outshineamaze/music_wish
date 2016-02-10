@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render,HttpResponseRedirect
 from django.http import HttpResponse
-from forms import CommentForm,ReplaycommentForm
+# from forms import CommentForm,ReplaycommentForm
 from django.contrib import messages
 from comments.models import Comments,Replay
 from django.core.paginator import Paginator,InvalidPage, EmptyPage

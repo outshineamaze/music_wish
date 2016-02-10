@@ -16,19 +16,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 import os.path 
-import sae.const
+
 from os import environ
 #debug = not environ.get("myoutshine", "") 
 DEBUG = True
-import sae.const
 
 
-MYSQL_DB = sae.const.MYSQL_DB 
-MYSQL_USER = sae.const.MYSQL_USER 
-MYSQL_PASS = sae.const.MYSQL_PASS 
-MYSQL_HOST_M = sae.const.MYSQL_HOST 
-MYSQL_HOST_S = sae.const.MYSQL_HOST_S 
-MYSQL_PORT = sae.const.MYSQL_PORT
+
+if DEBUG :
+    MYSQL_DB = 'music_wish'
+    MYSQL_USER = 'root' 
+    MYSQL_PASS = '' 
+    MYSQL_HOST_M = 'localhost' 
+    MYSQL_HOST_S = 'localhost' 
+    MYSQL_PORT = '3306' 
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'r3eb7!#-#kdbk(%*r7e769p7-(1tbpdpi6h1qr%%%v+@3usj^8'
 
@@ -84,7 +87,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'zh-cn'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
