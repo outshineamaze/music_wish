@@ -1,13 +1,14 @@
+
 # -*- coding: utf-8 -*-
 from django.shortcuts import render,HttpResponseRedirect
 from django.http import HttpResponse
 # from forms import CommentForm,ReplaycommentForm
 from django.contrib import messages
-from comments.models import Comments,Replay
+from comments.models import Comments,Replay,Song,Comment
 from django.core.paginator import Paginator,InvalidPage, EmptyPage
 from django.core import serializers
 from django.template import Template, Context
-
+from qiniu import Auth
 def errorpage(request):
 	return render(request,'comments/404page.html')
 
@@ -21,7 +22,7 @@ def home(request):
     print paginator.num_pages
     try:
         page=int(request.REQUEST.get('page',1))
-        print page      # 如果没有对应的page键，就返回默认1
+  # 如果没有对应的page键，就返回默认1
     except ValueError:
 
         page = 1
@@ -89,3 +90,23 @@ def replaycom(request):
         return HttpResponse("success")
 
 
+def song(request,pk):
+    song = Song.objects.get(id=pk)
+    context = {"song":song}
+
+    print song.id
+    return  render(request,'comments/song.html',context)
+def uploadsong(request):
+
+
+    q = Auth('ToNLYIGLfHy5tpKSsRcBV2pw18b20LrYuBdvHaA_', '*********************')
+    print q
+    token = q.upload_token('outshineamazing', '')
+    print token
+    context = {'uptoken_url':token}
+    return render(request,'comments/test.html',context)
+def gettoken(request):
+    q = Auth('ToNLYIGLfHy5tpKSsRcBV2pw18b20LrYuBdvHaA_', '************************')
+    print 'get a token request and return now'
+    token = q.upload_token('outshineamazing', '')
+    return HttpResponse('{ "uptoken": "'+token+'"}')

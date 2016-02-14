@@ -1,19 +1,38 @@
-﻿<!DOCTYPE html>
-<html>
+﻿
+<!doctype html>
+<html lang="en">
 <head>
-<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script> 
-<script>
-$(document).ready(function(){
-  $("button").click(function(){
-    $("#div1").html("fsfsfsggergergegegegefsd");
-  });
-});
-</script>
+    <meta charset="UTF-8">
+    <title>upoad</title>
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <link href="../../static/css/main.css">
+    <script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script> 
+	<script src="../../static/js/qiniu.js"></script> 
+	<script src="../../static/js/plupload.full.min.js"></script> 
+    <script src="../../static/js/ui.js"></script> 
+
+
 </head>
 <body>
+<div class="container">
+    <div class="text-left col-md-12 wrapper">
+       
+        <input type="hidden" id="domain" value="http://qiniu-plupload.qiniudn.com/">
+        <input type="hidden" id="uptoken_url" value="gettoken">
+       
+    </div>
+    <div class="body">
+        <div class="col-md-12">
+            <div id="container">
+                <a class="btn btn-default btn-lg " id="pickfiles" href="#" >
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>选择文件</span>
+                </a>
+            </div>
+        </div>
 
-<div id="div1"><h2>使用 jQuery AJAX 来改变文本</h2></div>
-<button>获得外部内容</button>
+
+<script src="../../static/js/main.js"></script> 
 
 </body>
 </html>
