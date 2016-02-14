@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^song/(?P<pk>\d+)/','comments.views.song',name="song"),
 
     url(r'^addcomments/','comments.views.addcomment',name='addcomment'),
-    url(r'^addreplay/','comments.views.replaycom',name='addreplay')
+    url(r'^addreplay/','comments.views.replaycom',name='addreplay'),
+    url(r'^addsong/','comments.views.addsong',name='addsong')
 )

@@ -5,7 +5,8 @@ $(document).ready(function(){
   var playlist = [{
       title:"遇到你的时候",
       artist:"",
-      mp3:"http://7q5cas.com1.z0.glb.clouddn.com/遇到你的时候所有的星星都落到我头上-思璇.mp3",
+    /*  mp3:"http://7q5cas.com1.z0.glb.clouddn.com/遇到你的时候所有的星星都落到我头上-思璇.mp3",*/
+    mp3:"http://link.hhtjim.com/163/3407082.mp3",
     
       poster: "http://7q5cas.com1.z0.glb.clouddn.com/bg2.jpg-min"
     },{

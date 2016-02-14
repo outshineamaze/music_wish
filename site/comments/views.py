@@ -9,6 +9,8 @@ from django.core.paginator import Paginator,InvalidPage, EmptyPage
 from django.core import serializers
 from django.template import Template, Context
 from qiniu import Auth
+from comments.api import NetEase
+import re
 def errorpage(request):
 	return render(request,'comments/404page.html')
 
@@ -99,14 +101,43 @@ def song(request,pk):
 def uploadsong(request):
 
 
-    q = Auth('ToNLYIGLfHy5tpKSsRcBV2pw18b20LrYuBdvHaA_', '*********************')
+    q = Auth('ToNLYIGLfHy5tpKSsRcBV2pw18b20LrYuBdvHaA_', 'rrD25c6RoHoMajmLR8lSz9wW4FcGEHvGMDL4l2zV')
     print q
     token = q.upload_token('outshineamazing', '')
     print token
     context = {'uptoken_url':token}
     return render(request,'comments/test.html',context)
 def gettoken(request):
-    q = Auth('ToNLYIGLfHy5tpKSsRcBV2pw18b20LrYuBdvHaA_', '************************')
+    q = Auth('ToNLYIGLfHy5tpKSsRcBV2pw18b20LrYuBdvHaA_', 'rrD25c6RoHoMajmLR8lSz9wW4FcGEHvGMDL4l2zV')
     print 'get a token request and return now'
     token = q.upload_token('outshineamazing', '')
     return HttpResponse('{ "uptoken": "'+token+'"}')
+def addsong(request):
+    link = request.GET['songlink']
+    story=request.GET['contents']
+    print link
+    songid=re.split(r'id=', link)[1]
+    # song_url ="http://link.hhtjim.com/163/"+ songid+".mp3"
+
+
+    song=NetEase()
+    a =song.song_detail(songid)
+    print '---------------'
+    name =a[0]['name']
+    author = a[0]['artists']
+    authorename= author[0]['name']
+    song_pic= a[0]['album']['blurPicUrl']
+    song_url= a[0]['mp3Url']
+    print song_url
+    song= Song(name=name,song_pic=song_pic,song_url=song_url,song_author=authorename,song_story=story)
+    song.save()
+    print 'song save success'
+    return HttpResponse(song.id)
+
+
+
+
+
+
+
+
