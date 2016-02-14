@@ -272,12 +272,16 @@ class NetEase:
         return temp
 
 if __name__ == '__main__':
-	song=NetEase()
-	a =song.song_detail(16607019)
-	print '---------------'
-	print a[0]['name']
-	author = a[0]['artists']
-	print author[0]['name']
-	print a[0]['album']['blurPicUrl']
+	# song=NetEase()
+	# a =song.song_detail(16607019)
+	# print '---------------'
+	# print a[0]['name']
+	# author = a[0]['artists']
+	# print author[0]['name']
+	# print a[0]['album']['blurPicUrl']
 
-	print a[0]['mp3Url']
+	# print a[0]['mp3Url']
+    # seach= NetEase()
+    # print seach.search('蓝莲花')
+
+

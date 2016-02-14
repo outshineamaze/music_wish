@@ -94,13 +94,11 @@ def replaycom(request):
 
 def song(request,pk):
     song = Song.objects.get(id=pk)
-    context = {"song":song}
-
-    print song.id
+    comments = Comment.objects.filter(parent_song=pk).order_by('-timestamp')
+    context = {"song":song,'comments':comments}
+    print context
     return  render(request,'comments/song.html',context)
 def uploadsong(request):
-
-
     q = Auth('ToNLYIGLfHy5tpKSsRcBV2pw18b20LrYuBdvHaA_', 'rrD25c6RoHoMajmLR8lSz9wW4FcGEHvGMDL4l2zV')
     print q
     token = q.upload_token('outshineamazing', '')
@@ -112,14 +110,12 @@ def gettoken(request):
     print 'get a token request and return now'
     token = q.upload_token('outshineamazing', '')
     return HttpResponse('{ "uptoken": "'+token+'"}')
+
 def addsong(request):
     link = request.GET['songlink']
     story=request.GET['contents']
     print link
     songid=re.split(r'id=', link)[1]
-    # song_url ="http://link.hhtjim.com/163/"+ songid+".mp3"
-
-
     song=NetEase()
     a =song.song_detail(songid)
     print '---------------'
@@ -131,11 +127,8 @@ def addsong(request):
     print song_url
     song= Song(name=name,song_pic=song_pic,song_url=song_url,song_author=authorename,song_story=story)
     song.save()
-    print 'song save success'
+    print song.id
     return HttpResponse(song.id)
-
-
-
 
 
 

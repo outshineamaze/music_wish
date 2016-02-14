@@ -85,7 +85,7 @@ html {
  margin: 0 0 10px;
 }
 .music-player .info .center {
-	padding: 20px 0 0;
+	
 }
 .music-player .progress, .music-player .volume-level {
 	width: 100%;
@@ -93,7 +93,7 @@ html {
 	display: block;
 	background: #000;
 	position: absolute;
-	bottom: 0px;
+	bottom: -20px;
 	cursor: pointer;
 }
 .music-player .progress span, .music-player .volume-level span {
