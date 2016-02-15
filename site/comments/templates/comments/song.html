@@ -14,7 +14,7 @@
       <link rel="stylesheet" href="../../static/css/lanrenzhijia.css" type="text/css" />
 	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
    <script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+   <!--  <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
     
 	<style>
 	.up{width:54px;height:54px;background:url(../../static/images/topback.gif) no-repeat 0 0;filter:alpha(Opacity=40);-moz-opacity:0.4;opacity: 0.4;}
@@ -30,17 +30,13 @@
   <div class="music-player">
 
   <div class="info">
-
-
-   
     <div class="center">
       <div class="jp-playlist">
         <ul>
           <li></li>
         </ul>
       </div>
-    </div>
-   
+    </div>   
     <div class="progress jp-seek-bar"> <span class="jp-play-bar" style="width: 0%"></span> </div>
   </div>
   <div class="controls">
@@ -59,151 +55,96 @@
 
    
 
-	
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-            <div class="modal-dialog">
-			<div class="modal-content">
-				
-			  <div class="modal-header">
-			  
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="exampleModalLabel">来留下点足迹评论吧</h4>
-
-			  </div>
-			  <div class="modal-body">
-				<form>
-				  <div class="form-group">
-					<label for="recipient-name" class="control-label">姓名:</label>
-					<input type="text" name="name" class="form-control" id="recipient-name" maxlength="15" required="required">
-                    <input type="hidden" name="replayobj" id="replayobjid" }>
-				  </div>
-				  <div class="form-group">
-					<label for="message-text" class="control-label">内容:</label>
-					<textarea class="form-control" name="contents" id="message-text" maxlength="100" required="required"></textarea>
-				  </div>
-				</form>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" id="rpsender" class="btn btn-primary" data-dismiss="modal" >发送</button>
-			  </div>
-			</div>
-		  </div>
-		</div>
-	
+ <div class="productList wrap clearfix" id="song_des" >
+    <ul class="clearfix" >
+      <li >
+	  <a>
+		<h4>{{song.song_des}}</h4>
+		<p  id="content">{{song.song_story}}</p>
+	  </a>
+	   <div class="msg">          	
+          	<span class="time">{{song.updated|date:'Y日m月d日H点'}}</span>
+          </div>
+		</li>
+  
+</ul>
+</div> 
 
 	
-		<div class="modal fade" id="genpage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-            <div class="modal-dialog">
-			<div class="modal-content">
-				
-			  <div class="modal-header">
-			  
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="genpagetitle">复制网易云音乐上的歌曲链接</h4>
-
-			  </div>
-			  <div class="modal-body">
-				<form>
-				  <div class="form-group">
-					<label for="recipient-name" class="control-label">歌曲链接:</label>
-					<input type="text" name="name" class="form-control" id="songlink" maxlength="150" required="required">
-                 
-				  </div>
-				  <div class="form-group">
-					<label for="message-text" class="control-label">说两句吧:</label>
-					<textarea class="form-control" name="contents" id="songtext" maxlength="100" required="required"></textarea>
-				  </div>
-				</form>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" id="sendgetpage" class="btn btn-primary" data-dismiss="modal" >生成页面</button>
-			  </div>
-			</div>
-		  </div>
-		</div>
-
-
-
-	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-lg">
-			<div class="modal-content">
-			<div class="panel panel-info">
-			<div class="panel-heading"></div>
-			  <div class="panel-body">
-
-			  </div>
-			</div>
-			</div>
-			
-		 
-		 <div class="modal-footer">
-			<button type="button" id="modifiy" class="btn btn-lg" data-dismiss="modal">返回修改</button>
-			<button type="button" id="sender" class="btn btn-primary btn-lg" data-dismiss="modal" >保存</button>
-		</div>
-	</div>
-	</div>
-
-
-
-
+<div  class="des_board">
+		
+			<h1>
+				{{song.song_des}}
+			</h1>
+			<p>{{song.song_story}}</p>
+			<div class="msg">          	
+          	<span class="time">{{song.updated|date:'Y日m月d日H点'}}</span>
+          </div>
+         
+</div>	
 	
-	<div class="productList wrap clearfix" id="ul">
+
+
+
+
+ <div class="productList wrap clearfix" id="ul">
     <ul class="clearfix" id="postlist">
+
         {%for comment in comments %}
-      <li>
-		<div class="list-group"  data-toggle="modal" data-target="#exampleModal" data-whatever="{{comment.id}}">
-		  <a  class="list-group-item" >
-			<h4 class="list-group-item-heading" >{{comment.id}} : {{comment.name}}</h4>
-			<p class="list-group-item-text" id="content">{{comment.contents}}</p>
-		  </a>
-		   <div class="msg">          	
+      <li id="{{comment.id}}" class='commenitem'>
+	
+	  <a>
+		<h4>{{comment.id}} : {{comment.name}}</h4>
+		<p  id="content">{{comment.contents}}</p>
+	  </a>
+	   <div class="msg">          	
           	<span class="time">{{comment.updated|date:'Y日m月d日H点'}}</span>
           </div>
-		</div>
 		</li>
     {% endfor %}
-
-
 </ul>
-</div>
+
+
+
+
+
+
 		<div class="pagenavigation">
 				
 		<ul class="pager">
-        {% if commentList.has_previous %}
-		  <li><a href="?page={{ commentList.previous_page_number }}">上一页</a></li>
+        {% if comments.has_previous %}
+		  <li><a href="?page={{ comments.previous_page_number }}">上一页</a></li>
         {% endif %}
-        {% if commentList.has_next %}
-		  <li><a href="?page={{ commentList.next_page_number }}">下一页</a></li>
-{% endif %}
+        {% if comments.has_next %}
+		  <li><a href="?page={{ comments.next_page_number }}">下一页</a></li>
+		{% endif %}
 		</ul>
-
-		
 		</div>
+
+</div> 
+
+
 	<div id="forms" >
 		<form action="" id="comform" method="POST" class="bootstrap-frm" >
             {% csrf_token %}
-		<h1>留下你的祝福吧
+		<h1>留下你的
 		</h1>
 		<label>
-		<span>留言 :</span>
+		
 		<textarea id="message" name="contents" placeholder="人矮轻拍" maxlength="100" minlength="4" required="required"></textarea>
 		</label>
 		<label>
-		<span>昵称 :</span>
+		
 		<input id="name"  type="text" name="name" placeholder="你的大名" required="required" maxlength="15"  />
 		</label>
 		
 
 		<label>
-		<span>&nbsp;</span>
+		<input type="hidden" id="replayobjid" value=""  />
 		
-		<input type="button" id="bt" value="提交" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"  />
+		<input type="button" id="sendcomment" value="提交" class="btn btn-primary"   />
 		
-		<span>&nbsp;</span>
+		
 		</label>
 
 
@@ -211,68 +152,88 @@
 	</div>
 
 
-	<button type="button" class="genpage btn btn-primary btn-lg" data-toggle="modal" data-target="#genpage">
- 生成你的音乐留言板
-</button>
-	
+  <div class="footer_btn">
+		<button type="button" class="btn_yu" id='btn_comment'>
+		 留言
+		</button>
+			<button type="button" class="btn_yu" id='genpage'>
+		 生成你的音乐留言板
+		</button>
+      </div>
+
 
 	<script>
-	  $('#bt').on('click', function () {
-		$("#forms").slideUp(800);
-		var name =$("#name").val();
-        var message = $("#message").val();
-        var selection=$("#selection").val();
-        $(".panel-heading").html(name);
-        $(".panel-body").html(message);
-	  ;
-	  });
 
-	  $('#modifiy').on('click', function () {
-		$("#forms").fadeIn(300);
-	  ;
-	  });
+		$(document).ready(function(){
 
-	</script>
+		$('#song_des').click(function(e) {
 
-	<script>
-	$('#exampleModal').on('show.bs.modal', function (event) {
-	  var button = $(event.relatedTarget) ;// Button that triggered the modal
-	  var recipient = button.data('whatever'); // Extract info from data-* attributes
-	  var modal = $(this);
-	  modal.find('.modal-title').text('回复给 : ' + recipient+"楼");
-	  $("#replayobjid").val(recipient);
-	  });
-
-	
-	
-	</script>
-    <script>
+			console.log('dashbaord');
+		    $('.des_board').lightbox_me({
+		        centered: true,
+		        overlaySpeed:100,
+		        overlayCSS:{background: 'black',
+		opacity: .8},
+		       
+		        });
+		   
+		});
 
 
-  $("#sender").click(function(){
-    var name =$("#name").val();
-    var message = $("#message").val();
-    var selection=5;
-	
 
-    $.get("addcomments/",{'name':name,'contents':message,'like':selection},function(ret){
-      alert("留言成功啦");
-    });
-    });
 
-   $("#rpsender").click(function(){
+	   $("#sendcomment").click(function(){
 
-    var name = $("#recipient-name").val();
-    var contents ="回复给："+$("#replayobjid").val()+"楼 ："+$("#message-text").val();
+    var name = $("#name").val();
+    var contents =$("#message").val();
     var replayobj = $("#replayobjid").val();
+    $.get("/newcomment",{'parentid':{{song.id}},'name':name,'contents':contents,'parent_comment':replayobj },function(ret){
+     $("#forms").html('<h1>谢谢留言</h1></br><h4>小生无力回报,但愿以身相许</h1>').delay(2000).queue(function(){
+       $('#forms').trigger('close');});
+    });
+    });
+
+
 	
-    $.get("addreplay/",{'name':name,'contents':contents,'replayobj':replayobj },function(ret){
-     alert('评论成功啦');
-    });
-    });
 
-  </script>
+	   $('.commenitem').click(function(){ 
+　　　　console.log(this.id); 
+		$("#replayobjid").val(this.id);
 
+	
+	    $('#forms').lightbox_me({
+	        centered: true,
+	        overlaySpeed:100,
+	        overlayCSS:{background: 'black',
+			opacity: .8},
+	        onLoad: function() {
+	            $('#forms').find('input:first').focus()
+	            }
+	        });		   
+　　}); 
+
+
+	   $('#btn_comment').click(function(){ 
+	   	$("#replayobjid").val('0');
+	    $('#forms').lightbox_me({
+	        centered: true,
+	        overlaySpeed:100,
+	        overlayCSS:{background: 'black',
+			opacity: .8},
+	        onLoad: function() {
+	            $('#forms').find('input:first').focus()
+	            }
+	        });		   
+　　}); 
+
+
+
+	    	});
+	</script>
+
+
+
+<script src="../../static/js/jquery.lightbox_me.js"></script>
 <script src='../../static/js/jquery.jplayer.min.js'></script>
  <script src='../../static/js/jplayer.playlist.min.js'></script>
 

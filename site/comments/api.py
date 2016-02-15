@@ -83,7 +83,7 @@ class NetEase:
             'type': stype,
             'offset': offset,
             'total': total,
-            'limit': 60
+            'limit': 5
         }
         return self.httpRequest('POST', action, data)
 
@@ -271,9 +271,24 @@ class NetEase:
 
         return temp
 
+
+def search(request):
+    seach= NetEase()
+    res = seach.search('w')
+    print res
+    # print res['result']['songs']
+    # songlist = [(a['id'], a['name'], a['artists'][0]['name'])for a in res['result']['songs']]
+    # print songlist
+
+
+    #print [a['artists'][0]['name'] for a in res['songs']]
+
+
+
 if __name__ == '__main__':
 	# song=NetEase()
-	# a =song.song_detail(16607019)
+	# print song.song_detail(1987888)
+
 	# print '---------------'
 	# print a[0]['name']
 	# author = a[0]['artists']
@@ -282,6 +297,8 @@ if __name__ == '__main__':
 
 	# print a[0]['mp3Url']
     # seach= NetEase()
-    # print seach.search('蓝莲花')
+
+    search('i love you')
+
 
 

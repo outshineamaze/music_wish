@@ -90,14 +90,6 @@ def replaycom(request):
         print "success by gedfgst"
         print "hhhhhhhhhhhhhh"
         return HttpResponse("success")
-
-
-def song(request,pk):
-    song = Song.objects.get(id=pk)
-    comments = Comment.objects.filter(parent_song=pk).order_by('-timestamp')
-    context = {"song":song,'comments':comments}
-    print context
-    return  render(request,'comments/song.html',context)
 def uploadsong(request):
     q = Auth('ToNLYIGLfHy5tpKSsRcBV2pw18b20LrYuBdvHaA_', 'rrD25c6RoHoMajmLR8lSz9wW4FcGEHvGMDL4l2zV')
     print q
@@ -110,6 +102,32 @@ def gettoken(request):
     print 'get a token request and return now'
     token = q.upload_token('outshineamazing', '')
     return HttpResponse('{ "uptoken": "'+token+'"}')
+
+def song(request,pk):
+    song = Song.objects.get(id=pk)
+    comments = Comment.objects.filter(parent_song=pk).order_by('-timestamp')
+
+    page_size=5
+    paginator=Paginator(comments,page_size)
+    print paginator.num_pages
+    try:
+        page=int(request.GET.get('page',1))
+        print page      # 如果没有对应的page键，就返回默认1
+    except ValueError:
+        page = 1
+        print page+"123242354353"
+    try:
+        posts = paginator.page(page)
+        print page
+    except (EmptyPage, InvalidPage):
+        posts = paginator.page(paginator.num_pages)
+    print "succcs"
+
+
+    context = {"song":song,'comments':posts}
+
+    return  render(request,'comments/song.html',context)
+
 
 def addsong(request):
     link = request.GET['songlink']
@@ -131,6 +149,78 @@ def addsong(request):
     return HttpResponse(song.id)
 
 
+def search(request):
+    try:
+        keyword =request.GET['keyword']
+        if not request.GET['keyword']:
+            return HttpResponse('请输入要搜索的歌曲\(^o^)/~') 
+    except:
+        return HttpResponse('error')
 
+    seach= NetEase()
+    res = seach.search(keyword)
+    # print res['result']['songs']
+    songlist = [(a['id'], a['name'], a['artists'][0]['name'])for a in res['result']['songs']]
+    return HttpResponse( str(songlist))
 
+def newcomment(request):
+    print "start process"
+    if request.GET:
+        print 'get'
+        if request.GET.get('parent_comment',None)!=None:
+            songid= request.GET['parentid']
+            name=request.GET['name']
+            contents=request.GET['contents']
+            replayobj=request.GET['parent_comment']
+            print 'replay'
+            print songid
+            print 'name:'+name
+            print 'comments:'+contents
 
+            if name=='' or contents=='':
+                return HttpResponse('please input your comments')
+            m=Comment(parent_song_id=songid,name=name,contents=contents,parent_comment=replayobj)
+            m.save()
+            print "success "
+            return HttpResponse("success")
+        else:
+            songid= request.GET['parentid']
+            name=request.GET['name']
+            contents=request.GET['contents']
+            print songid
+            print 'name:'+name
+            print 'comments:'+contents
+
+            if name=='' or contents=='':
+                return HttpResponse('please input your comments')
+            m=Comment(parent_song_id=songid,name=name,contents=contents)
+            m.save()
+            print "success by direct add comment "
+            return HttpResponse("success")
+    else:
+        return HttpResponse('error')
+
+    
+
+def addcomment(request):
+    print "start process"
+    if request.GET:
+        name=request.GET['name']
+        contents=request.GET['contents']
+        like=request.GET['like']
+        m=Comments(name=name,contents=contents,like=like,replays=0)
+        m.save()
+        print "success by get"
+        return HttpResponse("success")
+
+def replaycom(request):
+    print "start process"
+    if request.GET:
+        name=request.GET['name']
+        contents=request.GET['contents']
+        replayobj=request.GET['replayobj']
+        m=Replay(name=name,contents=contents,like=0,replays=0,replayobj=replayobj)
+        m.save()
+        print "success by gedfgst"
+        print "hhhhhhhhhhhhhh"
+        return HttpResponse("success")
