@@ -264,12 +264,31 @@ border-radius:10px;padding:15px;
 
 
 
+.pager {
+    padding-left: 0;
+    margin: 20px 0;
+    text-align: center;
+    list-style: none;}
+
+.pager li>a, .pager li>span {
+    display: inline-block;
+    padding: 5px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+.pager li>a :hover{
+  background-color: #ddd;
+}
+
 .footer_btn{z-index: 9999;
 	display:-webkit-box;display:-moz-box;
 
 /* 	position:fixed;bottom:0px;;left:0px; */
 position: relative;
-width:100%;background-color:rgba(247, 247, 247, 1);border-top:1px solid rgba(128, 128, 128, 0.4); }
+width:100%;
+border-top:1px solid rgba(128, 128, 128, 0.4); }
 .footer_btn .btn_yu{
 	display:-webkit-box;
 display:-moz-box;border-radius:6px;
@@ -279,5 +298,6 @@ display:-moz-box;border-radius:6px;
 -moz-box-align:center;
 font-size:15px;margin:10px;
 height:30px;text-decoration:none;
-margin:2px£»background-color:rgba(250, 250, 250, 0.92);color:black;-webkit-box-flex:1;-moz-box-flex:1;}
+margin:2px£»
+background-color:rgba(250, 250, 250, 0.82);color:black;-webkit-box-flex:1;-moz-box-flex:1;}
 .footer_btn .btn_yu:active{background-color:background-color:rgba(0, 162, 201);}

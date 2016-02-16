@@ -110,23 +110,33 @@ def song(request,pk):
     page_size=5
     paginator=Paginator(comments,page_size)
     print paginator.num_pages
+    isajax = False
     try:
-        page=int(request.GET.get('page',1))
-        print page      # 如果没有对应的page键，就返回默认1
+        if request.GET.get('page',None)!= None:
+            page=int(request.GET.get('page',1))
+            print page
+            isajax = True
+        else:
+            page=1
     except ValueError:
-        page = 1
-        print page+"123242354353"
+        return HttpResponse('error')
     try:
         posts = paginator.page(page)
         print page
     except (EmptyPage, InvalidPage):
         posts = paginator.page(paginator.num_pages)
-    print "succcs"
-
-
+    print "succcs  get post object "
     context = {"song":song,'comments':posts}
+    if not isajax:
+        print "return songhtml"
+        return  render(request,'comments/song.html',context)
+    elif isajax:
+        print 'return ajax comment html'
+        return render(request,'comments/ajax.html',context)
+    else:
+        return HttpResponse('error')
 
-    return  render(request,'comments/song.html',context)
+
 
 
 def addsong(request):

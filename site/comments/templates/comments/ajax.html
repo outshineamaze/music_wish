@@ -1,5 +1,4 @@
-
-
+<div class="productList wrap clearfix" id="ul">
     <ul class="clearfix" id="postlist">
 
         {%for comment in comments %}
@@ -15,15 +14,53 @@
 		</li>
     {% endfor %}
 </ul>
-
+</div> 
 		<div class="pagenavigation">
 				
 		<ul class="pager">
         {% if comments.has_previous %}
-		  <li><a href="?page={{ commentList.previous_page_number }}">上一页</a></li>
+		  <li><a id="{{ comments.previous_page_number }}" class="btn_comment">上一页</a></li>
         {% endif %}
         {% if comments.has_next %}
-		  <li><a href="?page={{ commentList.next_page_number }}">下一页</a></li>
+		  <li><a id="{{ comments.next_page_number }}" class='btn_comment'>下一页</a></li>
 		{% endif %}
 		</ul>
 		</div>
+
+
+<script>
+		$(document).ready(function(){
+
+ $(".btn_comment").click(function(){
+    var page =this.id;
+    console.log(page);
+    $.get("",{'page':page},function(ret){
+    	$("#comment_contain").html(ret);
+    	console.log($("song_des").scrollTop());
+		$("html,body").animate({
+			scrollTop:$("#song_des").offset().top},500);
+
+		 });
+	});
+
+
+
+	   $('.commenitem').click(function(){ 
+　　　　console.log(this.id); 
+		$("#replayobjid").val(this.id);
+
+	
+	    $('#forms').lightbox_me({
+	        centered: true,
+	        overlaySpeed:100,
+	        overlayCSS:{background: 'black',
+			opacity: .8},
+	        onLoad: function() {
+	            $('#forms').find('input:first').focus()
+	            }
+	        });		   
+　　}); 
+	   
+		});
+
+	</script>

@@ -9,7 +9,7 @@
 
     <!-- Bootstrap -->
    <!-- 新 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!-- 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="../../static/css/index.css" type="text/css"  />
       <link rel="stylesheet" href="../../static/css/lanrenzhijia.css" type="text/css" />
 	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -43,7 +43,7 @@
     <div class="current jp-current-time">00:00</div>
     <div class="play-controls">
     
-        <a href="javascript:;" class="icon-play jp-play" title="play" ></a>
+        <a href="javascript:;" class="icon-play jp-play" id="player_play" title="play" ></a>
         <a href="javascript:;" class="icon-pause jp-pause" title="pause"></a>
 
      </div>
@@ -62,9 +62,7 @@
 		<h4>{{song.song_des}}</h4>
 		<p  id="content">{{song.song_story}}</p>
 	  </a>
-	   <div class="msg">          	
-          	<span class="time">{{song.updated|date:'Y日m月d日H点'}}</span>
-          </div>
+	  
 		</li>
   
 </ul>
@@ -77,51 +75,19 @@
 				{{song.song_des}}
 			</h1>
 			<p>{{song.song_story}}</p>
-			<div class="msg">          	
+			 <div class="msg">          	
           	<span class="time">{{song.updated|date:'Y日m月d日H点'}}</span>
           </div>
+		</li>
+			
          
 </div>	
 	
 
+<div id="comment_contain">
+{% include 'comments/ajax.html' %}
+</div>
 
-
-
- <div class="productList wrap clearfix" id="ul">
-    <ul class="clearfix" id="postlist">
-
-        {%for comment in comments %}
-      <li id="{{comment.id}}" class='commenitem'>
-	
-	  <a>
-		<h4>{{comment.id}} : {{comment.name}}</h4>
-		<p  id="content">{{comment.contents}}</p>
-	  </a>
-	   <div class="msg">          	
-          	<span class="time">{{comment.updated|date:'Y日m月d日H点'}}</span>
-          </div>
-		</li>
-    {% endfor %}
-</ul>
-
-
-
-
-
-
-		<div class="pagenavigation">
-				
-		<ul class="pager">
-        {% if comments.has_previous %}
-		  <li><a href="?page={{ comments.previous_page_number }}">上一页</a></li>
-        {% endif %}
-        {% if comments.has_next %}
-		  <li><a href="?page={{ comments.next_page_number }}">下一页</a></li>
-		{% endif %}
-		</ul>
-		</div>
-
-</div> 
 
 
 	<div id="forms" >
@@ -188,29 +154,20 @@
     var contents =$("#message").val();
     var replayobj = $("#replayobjid").val();
     $.get("/newcomment",{'parentid':{{song.id}},'name':name,'contents':contents,'parent_comment':replayobj },function(ret){
-     $("#forms").html('<h1>谢谢留言</h1></br><h4>小生无力回报,但愿以身相许</h1>').delay(2000).queue(function(){
+    	var page=1;
+
+ $.get("",{'page':page},function(ret){
+    	$("#comment_contain").html(ret);
+		$("html,body").animate({
+			scrollTop:$("#song_des").offset().top},500);
+
+		 });
+
+     $("#forms").html('<h1>谢谢</h1></br><h4>小生无力回报,但愿以身相许</h1>').delay(2000).queue(function(){
        $('#forms').trigger('close');});
     });
     });
 
-
-	
-
-	   $('.commenitem').click(function(){ 
-　　　　console.log(this.id); 
-		$("#replayobjid").val(this.id);
-
-	
-	    $('#forms').lightbox_me({
-	        centered: true,
-	        overlaySpeed:100,
-	        overlayCSS:{background: 'black',
-			opacity: .8},
-	        onLoad: function() {
-	            $('#forms').find('input:first').focus()
-	            }
-	        });		   
-　　}); 
 
 
 	   $('#btn_comment').click(function(){ 
@@ -236,6 +193,8 @@
 <script src="../../static/js/jquery.lightbox_me.js"></script>
 <script src='../../static/js/jquery.jplayer.min.js'></script>
  <script src='../../static/js/jplayer.playlist.min.js'></script>
+
+	
 
 
 	<script>
@@ -281,7 +240,17 @@ $(document).ready(function(){
 });
 
 </script>
-	
+	<script>
+	function scrollcomment(pos){
+                	$("html,body").animate({
+					scrollTop:600},500);
+            }
+
+	 $("#player_play").click(function(){
+		scrollcomment();
+		  
+            });
+	</script>
 	
   </body>
 </html>
