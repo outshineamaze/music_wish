@@ -188,7 +188,7 @@ def newcomment(request):
             print 'comments:'+contents
 
             if name=='' or contents=='':
-                return HttpResponse('please input your comments')
+                return HttpResponse('null')
             m=Comment(parent_song_id=songid,name=name,contents=contents,parent_comment=replayobj)
             m.save()
             print "success "
@@ -202,7 +202,7 @@ def newcomment(request):
             print 'comments:'+contents
 
             if name=='' or contents=='':
-                return HttpResponse('please input your comments')
+                return HttpResponse('null')
             m=Comment(parent_song_id=songid,name=name,contents=contents)
             m.save()
             print "success by direct add comment "

@@ -93,7 +93,7 @@ html {
 	display: block;
 	background: #000;
 	position: absolute;
-	bottom: -20px;
+	bottom: 0px;
 	cursor: pointer;
 }
 .music-player .progress span, .music-player .volume-level span {

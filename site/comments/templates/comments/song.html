@@ -154,8 +154,11 @@
     var contents =$("#message").val();
     var replayobj = $("#replayobjid").val();
     $.get("/newcomment",{'parentid':{{song.id}},'name':name,'contents':contents,'parent_comment':replayobj },function(ret){
+    	if (ret=='null') {
+    		$("#name").focus();
+    	}
+    	else{
     	var page=1;
-
  $.get("",{'page':page},function(ret){
     	$("#comment_contain").html(ret);
 		$("html,body").animate({
@@ -164,8 +167,9 @@
 		 });
 
      $("#forms").html('<h1>谢谢</h1></br><h4>小生无力回报,但愿以身相许</h1>').delay(2000).queue(function(){
-       $('#forms').trigger('close');});
+       $('#forms').trigger('close');});}
     });
+
     });
 
 
@@ -243,7 +247,7 @@ $(document).ready(function(){
 	<script>
 	function scrollcomment(pos){
                 	$("html,body").animate({
-					scrollTop:600},500);
+					scrollTop:$("#song_des").offset().top},500);
             }
 
 	 $("#player_play").click(function(){
