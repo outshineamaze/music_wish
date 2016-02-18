@@ -1,0 +1,12 @@
+<ul id="searchResultUl">
+{% for item in resultlist%}
+<li>
+<div class="songdetail">
+	<span class="song_name">{{item.name}}  {{item.author}}</span>
+	<!-- <span class="song_author">{{item.author}}</span> -->
+	</div>
+	<input type="hidden" id="searchitem"  value="{{item.id}}">
+	<a >生成</a>
+</li>
+{%endfor%}
+</ul>

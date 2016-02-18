@@ -1,11 +1,11 @@
 
 
-/* ½ûÖ¹webkitºáÆÁ¸Ä±ä×ÖÌå´óÐ¡ */
 html{
 	-webkit-text-size-adjust:100%;
 	-ms-text-size-adjust:100%;
-  font-family: »ªÎÄÏ¸ºÚ,sans-serif;
-
+  font-family: åŽæ–‡ç»†é»‘,sans-serif;
+  
+    
 }
 
 *{padding:0px; margin:0px;border:none;}
@@ -15,7 +15,7 @@ a{color:#444444; text-decoration:none;}
 a:hover{text-decoration:none; color:#444444;}
 p { margin:10px;}
 li{overflow:hidden; list-style-type:none;}
-body{ background:url("http://7q5cas.com1.z0.glb.clouddn.com/1.jpg"); 
+body{ background:url("../images/background_m.jpg"); 
 background-position:'center';
 background-size:cover;
  background-repeat:no-repeat;
@@ -35,12 +35,12 @@ font-size: 14px;}
 }
 
 
-/* Çå³ý¸¡¶¯ */
+/* Ã‡Ã¥Â³Ã½Â¸Â¡Â¶Â¯ */
 .clearfix:after{visibility: hidden;display: block;font-size: 0;content:" ";clear: both;height: 0;}
 .clearfix{*zoom:1;}
 .wrap{ margin:0 auto;max-width:600px;position:relative;}
 
-/* ²úÆ·ÁÐ±í */
+/* Â²ÃºÃ†Â·ÃÃÂ±Ã­ */
 .productList ul{ width:100%; }
 .productList ul li{border:solid 1px #e5e6e6; 
  border-top:solid 1px #FFF;
@@ -214,10 +214,11 @@ border-radius:10px;padding:15px;
 .footer_btn{z-index: 9999;
 	display:-webkit-box;display:-moz-box;
 
-/* 	position:fixed;bottom:0px;;left:0px; */
 position: relative;
 width:100%;
-border-top:1px solid rgba(128, 128, 128, 0.4); }
+border-top:1px solid rgba(128, 128, 128, 0.4);
+
+ }
 .footer_btn .btn_yu{
 	display:-webkit-box;
 display:-moz-box;border-radius:6px;
@@ -227,6 +228,130 @@ display:-moz-box;border-radius:6px;
 -moz-box-align:center;
 font-size:15px;margin:10px;
 height:30px;text-decoration:none;
-margin:2px;
+
 background-color: rgba(255, 255, 255, 0.75);color:black;-webkit-box-flex:1;-moz-box-flex:1;}
 .footer_btn .btn_yu:active{background-color:background-color:rgba(0, 162, 201);}
+
+
+
+/* æœç´¢é¡µé¢æ ·å¼è¡¨ */
+#mainTop {
+    position: relative;
+    width: 100%;
+    
+    height: 80px;
+  
+    padding-top: 5px;
+    z-index: 12;
+}
+#searchOut {
+    max-width: 600px;
+    width: 100%;
+    height: 40px;
+    position: relative;
+    margin-top: 30px;
+    display: none;
+    MARGIN-RIGHT: auto;
+    MARGIN-LEFT: auto;
+}
+
+#searchButton {
+    position: absolute;
+    top: 0;
+    right: 10%;
+    width: 70px;
+    height: 40px;
+    background-color: #842A40;
+    border-radius: 0 40px 40px 0;
+    -webkit-transition: all .2s ease;
+    font-size: 18px;
+    color: #fdfdfd;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    display: none;
+    opacity: 0;
+    margin-right: -2px;
+    background-image: url(../images/search.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 35%;
+}
+#searchButton:hover{-webkit-filter:brightness(1.1)}
+#searchButton:active{-webkit-filter:brightness(1)}
+input[type=search] {
+    margin: 0;
+    width: 70%;
+    margin-left:10% ;
+    padding-left: 20px;
+    height: 40px;
+    line-height: 40px;
+    outline: 0;
+    background-color:  rgba(255,255,255,.5);
+  
+    border-radius: 30px 0 0 30px;
+    color: #555;
+    font-size: 14px;
+    font-family: "Segoe UI","Microsoft Yahei",Arial;
+}
+.SearchInput {
+    
+      color: #842A40!important;
+    font-size: 16px!important;
+}
+
+/* æœç´¢ç»“æžœæ ·å¼è¡¨ */
+.searchResult{
+
+    display: inline-block;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10px;
+ 
+    border-radius: 10px;
+  background-color: rgba(255,255,255,.5);
+    text-align: center;
+}
+.searchResult ul{
+  margin: 20px 0px;
+  position: relative;
+  width: 90%;
+  display: inline-block;
+}
+.searchResult li{
+height: 35px;
+margin-bottom: 5px;
+text-align: left;
+font-size: 20px;
+  vertical-align: center;
+
+}
+.songdetail{
+  width: 70%;
+  float: left;
+margin-top: 5px;
+}
+.songdetail .song_name{
+width: 60%;
+    overflow-x: hidden;
+}
+.songdetail .song_author{
+width: 40%;
+ overflow-x: hidden;
+float: right;
+}
+.searchResult li>a {
+    display: inline-block;
+    padding: 3px 14px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    float: right;
+      margin-top: 5px;
+          font-size: 15px;
+}
+
+.searchResult li>a :hover{
+  background-color: #ddd;
+}

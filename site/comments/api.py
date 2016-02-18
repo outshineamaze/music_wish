@@ -271,34 +271,26 @@ class NetEase:
 
         return temp
 
-
-def search(request):
-    seach= NetEase()
-    res = seach.search('w')
-    print res
-    # print res['result']['songs']
-    # songlist = [(a['id'], a['name'], a['artists'][0]['name'])for a in res['result']['songs']]
-    # print songlist
-
-
-    #print [a['artists'][0]['name'] for a in res['songs']]
-
-
-
-if __name__ == '__main__':
-	# song=NetEase()
-	# print song.song_detail(1987888)
-
-	# print '---------------'
-	# print a[0]['name']
-	# author = a[0]['artists']
-	# print author[0]['name']
-	# print a[0]['album']['blurPicUrl']
-
-	# print a[0]['mp3Url']
-    # seach= NetEase()
-
-    search('i love you')
-
-
-
+class searchResult(object):
+    def __init__(self,id,name,author):
+        self.id  = id
+        self.name = name
+        self.author = author
+    @staticmethod
+    def getSearchResult(keyword):
+        seach= NetEase()
+        print "new seach"
+        res = seach.search(keyword)
+        print  "get result"
+        resultlist=[searchResult(a['id'], a['name'], a['artists'][0]['name']) for a in res['result']['songs']]
+        return resultlist
+# if __name__ == '__main__':
+    
+# 	# song=NetEase()
+# 	# print song.song_detail(1987888)
+# 	# print '---------------'
+# 	# print a[0]['name']
+# 	# author = a[0]['artists']
+# 	# print author[0]['name']
+# 	# print a[0]['album']['blurPicUrl']
+# 	# print a[0]['mp3Url']

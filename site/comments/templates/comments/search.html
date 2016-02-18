@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <title>制作你的的音乐留言板</title>
+
+	<link rel="stylesheet" href="../../static/css/index.css" type="text/css"  />
+   <script src="../../static/js/jquery.min.js"></script>
+
+    
+	<style>
+	.up{width:54px;height:54px;background:url(../../static/images/topback.gif) no-repeat 0 0;filter:alpha(Opacity=40);-moz-opacity:0.4;opacity: 0.4;}
+	</style>
+
+      <script type="text/javascript" src="../../static/js/scrolltopcontrol.js"></script>
+
+	
+  </head>
+  <body>
+
+	<div id="mainTop">
+		<div id="searchOut" style="display: block;">
+		<input type="search"  class="SearchInput"  >
+		<span  id="searchButton"  style="display: inline; opacity: 1;"></span>
+		</div>
+	</div>
+
+<div class ="searchResult">
+<ul id="searchResultUl">
+
+
+
+<li>
+<div class="songdetail">
+	<span class="song_name">蓝莲花</span>
+	<span class="song_author">许巍</span>
+	</div>
+	<input type="hidden" id="searchitem" value="168091">
+	<a>生成</a>
+</li>
+
+<li>
+<div class="songdetail">
+	<span class="song_name">蓝莲花</span>
+	<span class="song_author">许巍</span>
+	</div>
+	<input type="hidden" id="searchitem" value="167837">
+	<a>生成</a>
+</li>
+
+<li>
+<div class="songdetail">
+	<span class="song_name">蓝莲花</span>
+	<span class="song_author">黄琬婷</span>
+	</div>
+	<input type="hidden" id="searchitem" value="242239">
+	<a>生成</a>
+</li>
+
+<li>
+<div class="songdetail">
+	<span class="song_name">蓝莲花</span>
+	<span class="song_author">许巍</span>
+	</div>
+	<input type="hidden" id="searchitem" value="167690">
+	<a>生成</a>
+</li>
+
+<li>
+<div class="songdetail">
+	<span class="song_name">蓝莲花(Live) - live</span>
+	<span class="song_author">许巍</span>
+	</div>
+	<input type="hidden" id="searchitem" value="167908">
+	<a>生成</a>
+</li>
+
+
+
+</ul>
+</div>
+<script src="../../static/js/jquery.lightbox_me.js"></script>
+<script>
+		$(document).ready(function(){
+				console.log('hhhhh');
+		$("#searchButton").click(function() {
+
+			console.log($(".SearchInput").val());
+			key = $(".SearchInput").val();
+			$.get("/search",{'keyword':key},function(ret){
+
+				$(".searchResult").html(ret);
+			});
+		        });
+		});
+</script>
+
+
+
+	
+  </body>
+</html>

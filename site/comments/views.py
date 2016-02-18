@@ -9,7 +9,7 @@ from django.core.paginator import Paginator,InvalidPage, EmptyPage
 from django.core import serializers
 from django.template import Template, Context
 from qiniu import Auth
-from comments.api import NetEase
+from comments.api import NetEase, searchResult
 import re
 def errorpage(request):
 	return render(request,'comments/404page.html')
@@ -45,26 +45,9 @@ def home(request):
         return HttpResponse(html)
 def index(request):
     print "start process"
-
-
-    last_comment_list = Comments.objects.all().order_by("-timestamp")
-    page_size=10
-    paginator=Paginator(last_comment_list,page_size)
-    print paginator.num_pages
-    try:
-        page=int(request.REQUEST.get('page',1))
-        print page      # 如果没有对应的page键，就返回默认1
-    except ValueError:
-        page = 1
-        print page+"123242354353"
-    try:
-        posts = paginator.page(page)
-        print page
-    except (EmptyPage, InvalidPage):
-        posts = paginator.page(paginator.num_pages)
     print "succcs"
-    context = {'commentList':posts}
-    return render(request,'comments/index.html',context)
+    context = {}
+    return render(request,'comments/search.html',context)
 
 
 
@@ -90,6 +73,8 @@ def replaycom(request):
         print "success by gedfgst"
         print "hhhhhhhhhhhhhh"
         return HttpResponse("success")
+
+
 def uploadsong(request):
     q = Auth('ToNLYIGLfHy5tpKSsRcBV2pw18b20LrYuBdvHaA_', 'rrD25c6RoHoMajmLR8lSz9wW4FcGEHvGMDL4l2zV')
     print q
@@ -167,11 +152,15 @@ def search(request):
     except:
         return HttpResponse('error')
 
-    seach= NetEase()
-    res = seach.search(keyword)
-    # print res['result']['songs']
-    songlist = [(a['id'], a['name'], a['artists'][0]['name'])for a in res['result']['songs']]
-    return HttpResponse( str(songlist))
+    # seach= NetEase()
+    # res = seach.search(keyword)
+    # print type(res)
+    # # print res['result']['songs']
+    # songlist = [[a['id'], a['name'], a['artists'][0]['name']]for a in res['result']['songs']]
+    songlist=searchResult.getSearchResult(keyword)
+    contents = {"resultlist":songlist}
+    return render(request,"comments/searchlist.html",contents)
+
 
 def newcomment(request):
     print "start process"
