@@ -15,6 +15,7 @@ class Song(models.Model):
     song_author = models.CharField(max_length=50,null=True,blank=True)
     song_des =models.TextField(max_length=400,null=True,blank=True)
     song_story = models.TextField(max_length=1000)
+    story_author = models.CharField(max_length=50,null=True,blank=True)
     like = models.IntegerField(null=True,blank=True)
     updated=models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)

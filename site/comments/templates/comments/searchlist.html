@@ -5,8 +5,34 @@
 	<span class="song_name">{{item.name}}  {{item.author}}</span>
 	<!-- <span class="song_author">{{item.author}}</span> -->
 	</div>
-	<input type="hidden" id="searchitem"  value="{{item.id}}">
-	<a >生成</a>
+
+	<a class="searchitem"  id="{{item.id}}" info="{{item.name}}  {{item.author}}">生成</a>
 </li>
 {%endfor%}
 </ul>
+
+<script>
+	
+	  $(".searchitem").click(function(){
+	  	console.log("start genpage....");
+	  		var songid=this.id;
+	  		$("#songid").val(songid);
+	  		console.log($(this).attr("info"));
+	  		$("#genform_song").html($(this).attr("info"));
+
+	  	  $('#genpageform').lightbox_me({
+	        centered: true,
+	        overlaySpeed:100,
+	        overlayCSS:{background: 'black',
+			opacity: .8},
+	        onLoad: function() {
+	            $('#genpageform').find('input:first').focus()
+	            }
+	        });		  
+
+    });
+
+
+
+
+</script>

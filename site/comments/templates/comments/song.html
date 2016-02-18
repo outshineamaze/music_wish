@@ -59,7 +59,7 @@
     <ul class="clearfix" >
       <li >
 	  <a>
-		<h4>{{song.song_des}}</h4>
+		<h4>{{song.story_author}}</h4>
 		<p  id="content">{{song.song_story}}</p>
 	  </a>
 	  
@@ -202,17 +202,6 @@
 
 
 	<script>
-	
-	 $("#sendgetpage").click(function(){
-    var songlink =$("#songlink").val();
-    var message = $("#songtext").val();
-
-    $.get("addsong/",{'songlink':songlink,'contents':message},function(ret){
-    	alert(ret);
-      window.location.href='../../song/'+ret;
-
-    });
-    });
 
 
 $(document).ready(function(){

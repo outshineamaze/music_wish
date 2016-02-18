@@ -37,7 +37,8 @@ font-size: 14px;}
 
 /* Çå³ý¸¡¶¯ */
 .clearfix:after{visibility: hidden;display: block;font-size: 0;content:" ";clear: both;height: 0;}
-.clearfix{*zoom:1;}
+.clearfix{*zoom:1;
+    min-height: 150px;}
 .wrap{ margin:0 auto;max-width:600px;position:relative;}
 
 /* ²úÆ·ÁÐ±í */
@@ -62,6 +63,8 @@ background-color:rgba(255,255,255,.75);}
 	
 }
 
+
+/* 评论表单样式表 */
 #forms{
 width:90%;text-align:center;background-color:rgba(255,255,255,.9);
 display:none;
@@ -176,6 +179,9 @@ width:30%;
   margin-right: 5px;
   padding: 5px;
   }
+
+
+
 /*
 commment page css file*/
 
@@ -355,3 +361,14 @@ float: right;
 .searchResult li>a :hover{
   background-color: #ddd;
 }
+
+
+.genpage{
+  width: 100%; 
+}
+
+#genpageform{
+width:90%;text-align:center;background-color:rgba(255,255,255,.9);
+display:none;
+border-radius:10px;padding:15px;}
+.form {padding:10px;}

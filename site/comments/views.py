@@ -125,23 +125,36 @@ def song(request,pk):
 
 
 def addsong(request):
-    link = request.GET['songlink']
-    story=request.GET['contents']
-    print link
-    songid=re.split(r'id=', link)[1]
-    song=NetEase()
-    a =song.song_detail(songid)
+    try:
+        songid = request.GET['songid']
+        story_author= request.GET['username']
+        story=request.GET['contents']
+    except :
+        return HttpResponse('error1')
+
+    try:
+        song=NetEase()
+        a =song.song_detail(songid)
+    except :
+        return HttpResponse('error2')
+
     print '---------------'
-    name =a[0]['name']
-    author = a[0]['artists']
-    authorename= author[0]['name']
-    song_pic= a[0]['album']['blurPicUrl']
-    song_url= a[0]['mp3Url']
-    print song_url
-    song= Song(name=name,song_pic=song_pic,song_url=song_url,song_author=authorename,song_story=story)
-    song.save()
-    print song.id
-    return HttpResponse(song.id)
+    try:
+        name =a[0]['name']
+        author = a[0]['artists']
+        authorename= author[0]['name']
+        song_pic= a[0]['album']['blurPicUrl']
+        song_url= a[0]['mp3Url']
+        print song_url
+    except:
+        return HttpResponse("error3")
+    try:
+        song= Song(name=name,song_pic=song_pic,song_url=song_url,song_author=authorename,song_story=story,story_author=story_author)
+        song.save()
+        print song.id
+        return HttpResponse(song.id)
+    except:
+        return HttpResponse("error4")
 
 
 def search(request):
