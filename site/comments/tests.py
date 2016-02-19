@@ -10,10 +10,6 @@
 if __name__ == '__main__':
 
 
-	e='\u559c\u6b22\u4e00\u4e2a\u4eba'
-	print type(e)
-	print type(e.decode("utf-8"))
-	print type(e.decode("raw_unicode_escape").encode("utf-8"))
-	print type(e.decode("raw_unicode_escape"))
-	x = '\xe4\xbd\xa0'
-	print repr(x)
+	a= [1,2,4,5,6]
+	songlist_str=",".join([str(item) for item in a])
+	print songlist_str

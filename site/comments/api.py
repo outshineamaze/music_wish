@@ -17,7 +17,7 @@ def uniq(arr):
     arr2.sort(key=arr.index)
     return arr2
 
-default_timeout = 10
+default_timeout = 15
 
 
 class NetEase:
@@ -100,7 +100,7 @@ class NetEase:
     def top_playlists(self, category='全部', order='hot', offset=0, limit=50):
         action = 'http://music.163.com/api/playlist/list?cat=' + category + '&order=' + order + '&offset=' + str(offset) + '&total=' + ('true' if offset else 'false') + '&limit=' + str(limit)
         try:
-            data = self.httpRequest('GET', action)
+            data = self.httpRequest('GET', action,timeout=30)
             return data['playlists']
         except:
             return []
@@ -134,9 +134,11 @@ class NetEase:
                 return []
             # 去重
             songids = uniq(songids)
+
             return self.songs_detail(songids)
         except:
             return []
+
 
     # 歌手单曲
     def artists(self, artist_id):
@@ -270,7 +272,7 @@ class NetEase:
             temp = channel_info    
 
         return temp
-
+#搜索结果列表类
 class searchResult(object):
     def __init__(self,id,name,author):
         self.id  = id
@@ -284,13 +286,39 @@ class searchResult(object):
         print  "get result"
         resultlist=[searchResult(a['id'], a['name'], a['artists'][0]['name']) for a in res['result']['songs']]
         return resultlist
-# if __name__ == '__main__':
+    @staticmethod
+    def getSongResult(songid):
+        song=NetEase()
+        res = song.song_detail(songid)[0]
+        resultlist = [searchResult(songid,res["name"],res["artists"][0]["name"])]
+        return resultlist
+class songResult(object):
+
+    def __init__(self,id,name,author,mp3url,albumpicurl):
+        self.id = id
+        self.name= name
+        self.author = author
+        self.mp3url = mp3url
+        self.albumpicurl = albumpicurl
+    @staticmethod
+    def getSongList(songlist_id):
+        song = NetEase()
+        res  = song.playlist_detail(songlist_id)
+        songlist = [songResult(item["id"],item["name"],item["artists"][0]["name"],item["mp3Url"],item["album"]["blurPicUrl"]) for item in res]
+        return songlist
+        
+if __name__ == '__main__':
+
     
-# 	# song=NetEase()
-# 	# print song.song_detail(1987888)
-# 	# print '---------------'
-# 	# print a[0]['name']
-# 	# author = a[0]['artists']
-# 	# print author[0]['name']
-# 	# print a[0]['album']['blurPicUrl']
-# 	# print a[0]['mp3Url']
+    song=NetEase()
+    #song = searchResult.getSongResult(33922175)
+
+    print [ i.name for i in songResult.getSongList(171081652)]
+    #print song.song_detail(402070928)
+	# print '---------------'
+	# print a[0]['name']
+	# author = a[0]['artists']
+	# print author[0]['name']
+	# print a[0]['album']['blurPicUrl']
+	# print a[0]['mp3Url']
+

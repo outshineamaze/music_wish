@@ -4,12 +4,12 @@ from django.shortcuts import render,HttpResponseRedirect
 from django.http import HttpResponse
 # from forms import CommentForm,ReplaycommentForm
 from django.contrib import messages
-from comments.models import Comments,Replay,Song,Comment
+from comments.models import Comments,Replay,Song,Comment,SongInfo,SongList
 from django.core.paginator import Paginator,InvalidPage, EmptyPage
 from django.core import serializers
 from django.template import Template, Context
 from qiniu import Auth
-from comments.api import NetEase, searchResult
+from comments.api import NetEase, searchResult,songResult
 import re
 def errorpage(request):
 	return render(request,'comments/404page.html')
@@ -129,14 +129,14 @@ def addsong(request):
         songid = request.GET['songid']
         story_author= request.GET['username']
         story=request.GET['contents']
-    except :
-        return HttpResponse('error1')
 
+    except :
+        return HttpResponse('error')
     try:
         song=NetEase()
         a =song.song_detail(songid)
     except :
-        return HttpResponse('error2')
+        return HttpResponse('error')
 
     print '---------------'
     try:
@@ -147,32 +147,75 @@ def addsong(request):
         song_url= a[0]['mp3Url']
         print song_url
     except:
-        return HttpResponse("error3")
+        return HttpResponse("error")
     try:
+        if not story_author:
+            story_author="猜猜我是谁"
+        if not story:
+            story= "大爷我很深沉,啥都不想说"
         song= Song(name=name,song_pic=song_pic,song_url=song_url,song_author=authorename,song_story=story,story_author=story_author)
         song.save()
         print song.id
         return HttpResponse(song.id)
     except:
-        return HttpResponse("error4")
+        return HttpResponse("error")
 
 
 def search(request):
     try:
-        keyword =request.GET['keyword']
-        if not request.GET['keyword']:
+        if request.GET['keyword'] == "":
+            print request.GET['keyword']
+            print type(request.GET['keyword'])
             return HttpResponse('请输入要搜索的歌曲\(^o^)/~') 
+        keyword =request.GET['keyword']
     except:
-        return HttpResponse('error')
+        return HttpResponse('输入有误重新输入\(^o^)/~')
 
     # seach= NetEase()
     # res = seach.search(keyword)
     # print type(res)
     # # print res['result']['songs']
     # songlist = [[a['id'], a['name'], a['artists'][0]['name']]for a in res['result']['songs']]
-    songlist=searchResult.getSearchResult(keyword)
-    contents = {"resultlist":songlist}
-    return render(request,"comments/searchlist.html",contents)
+    try:
+        if re.findall(r'/song/(\d+)', keyword):
+            songid=re.findall(r'/song/(\d+)', keyword)
+            print songid[0]
+            songlist=searchResult.getSongResult(songid[0])
+        else:
+            songlist=searchResult.getSearchResult(keyword)
+        contents = {"resultlist":songlist}
+        return render(request,"comments/searchlist.html",contents)
+    except:
+        return HttpResponse('服务器晚上要挨打了')
+
+def genSongList(request):
+    try:
+        if request.GET['keyword'] == "":
+            print request.GET['keyword']
+            print type(request.GET['keyword'])
+            return HttpResponse('请输入要搜索的歌单\(^o^)/~') 
+        keyword =request.GET['keyword']
+        name = request.GET.get("name","不好听你来打我啊")
+        author = request.GET.get("author","梦很想家")
+    except:
+        return HttpResponse('输入有误重新输入\(^o^)/~')
+    print keyword
+    if re.findall(r'id=(\d+)', keyword):
+        listid = re.findall(r'id=(\d+)', keyword)[0]
+        print listid
+        songlist = songResult.getSongList(listid)
+        songlist_str=",".join([str(item.id) for item in songlist])
+        SongList(name=name,author= author,songlist=songlist_str).save()
+        print songlist_str
+        for item in songlist:
+            if SongInfo.objects.filter(id=int(item.id)):
+                print "find simer song"
+            else:
+                SongInfo(id=int(item.id),name=item.name,author=item.author,mp3url=item.mp3url,albumpicurl=item.albumpicurl).save()
+                print "success insert a song"
+
+        return HttpResponse("success")
+
 
 
 def newcomment(request):
@@ -184,33 +227,37 @@ def newcomment(request):
             name=request.GET['name']
             contents=request.GET['contents']
             replayobj=request.GET['parent_comment']
-            print 'replay'
-            print songid
-            print 'name:'+name
-            print 'comments:'+contents
+            # print 'replay'
+            # print songid
+            # print 'name:'+name
+            # print 'comments:'+contents
 
-            if name=='' or contents=='':
-                return HttpResponse('null')
+            if len(name)<1 or len(contents)<5:
+                return HttpResponse('error1')
+            elif len(name)>50 or len(contents)>400:
+                return HttpResponse("error2")
             m=Comment(parent_song_id=songid,name=name,contents=contents,parent_comment=replayobj)
             m.save()
-            print "success "
+            print "success add replay commment "
             return HttpResponse("success")
         else:
             songid= request.GET['parentid']
             name=request.GET['name']
             contents=request.GET['contents']
-            print songid
-            print 'name:'+name
-            print 'comments:'+contents
+            # print songid
+            # print 'name:'+name
+            # print 'comments:'+contents
 
-            if name=='' or contents=='':
-                return HttpResponse('null')
+            if len(name)<1 or len(contents)<5:
+                return HttpResponse('error1')
+            elif len(name)>50 or len(contents)>400:
+                return HttpResponse("error2")
             m=Comment(parent_song_id=songid,name=name,contents=contents)
             m.save()
             print "success by direct add comment "
             return HttpResponse("success")
     else:
-        return HttpResponse('error')
+        return HttpResponse('error0')
 
     
 

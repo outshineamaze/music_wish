@@ -24,7 +24,7 @@
 
 	<div id="mainTop">
 		<div id="searchOut" style="display: block;">
-		<input type="search"  class="SearchInput"  >
+		<input type="search"  class="SearchInput" placeholder="网易云链接或者直接搜索" >
 		<span  id="searchButton"  style="display: inline; opacity: 1;"></span>
 		</div>
 	</div>
@@ -123,9 +123,13 @@
     var message = $("#songtext").val();
     console.log(songid);
     $.get("addsong/",{'songid':songid,'username':username,'contents':message},function(ret){
-    	alert(ret);
+    	if (ret=='error') {
+    		$("#username").focus();
+    	} 
+    	else {
+     $('#genpageform').trigger('close');
       window.location.href='../../song/'+ret;
-
+      }
     });
     });
 

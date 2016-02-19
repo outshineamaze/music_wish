@@ -72,7 +72,7 @@
 <div  class="des_board">
 		
 			<h1>
-				{{song.song_des}}
+				{{song.story_author}}
 			</h1>
 			<p>{{song.song_story}}</p>
 			 <div class="msg">          	
@@ -122,7 +122,7 @@
 		<button type="button" class="btn_yu" id='btn_comment'>
 		 留言
 		</button>
-			<button type="button" class="btn_yu" id='genpage'>
+			<button type="button"  class="btn_yu" id='genpage'>
 		 生成你的音乐留言板
 		</button>
 	</div>
@@ -131,6 +131,9 @@
 	<script>
 
 		$(document).ready(function(){
+			$('#genpage').click(function(){
+				window.location.href='../../';
+			});
 
 		$('#song_des').click(function(e) {
 
@@ -153,22 +156,33 @@
     var name = $("#name").val();
     var contents =$("#message").val();
     var replayobj = $("#replayobjid").val();
+    if(contents=="" | name==""){
+    	console.log("blank input");
+    	$("#name").focus();
+
+    }
+    else{
     $.get("/newcomment",{'parentid':{{song.id}},'name':name,'contents':contents,'parent_comment':replayobj },function(ret){
-    	if (ret=='null') {
-    		$("#name").focus();
-    	}
-    	else{
+    	
+    if(ret=="success"){
     	var page=1;
- $.get("",{'page':page},function(ret){
+    	console.log("success add comment");
+ 		$.get("",{'page':page},function(ret){
     	$("#comment_contain").html(ret);
 		$("html,body").animate({
 			scrollTop:$("#song_des").offset().top},500);
-
 		 });
 
      $("#forms").html('<h1>谢谢</h1></br><h4>小生无力回报,但愿以身相许</h1>').delay(2000).queue(function(){
        $('#forms').trigger('close');});}
+     else {
+     	console.log(ret);
+    		$("#name").focus();
+    	}
+
+
     });
+}
 
     });
 
