@@ -45,9 +45,15 @@ def home(request):
         return HttpResponse(html)
 def index(request):
     print "start process"
-    print "succcs"
-    context = {}
-    return render(request,'comments/search.html',context)
+    if SongList.objects.all():
+        songlist=SongList.objects.all().order_by("-timestamp")[0]
+        songids = songlist.songlist.split(",")
+        songlistobj = SongInfo.objects.filter(id__in=songids)[0:10]
+        context = {"resultlist":songlistobj}
+        print "succcs"
+        return render(request,'comments/search.html',context)
+    else:
+        return render(request,'comments/search.html',{})
 
 
 
@@ -71,7 +77,6 @@ def replaycom(request):
         m=Replay(name=name,contents=contents,like=0,replays=0,replayobj=replayobj)
         m.save()
         print "success by gedfgst"
-        print "hhhhhhhhhhhhhh"
         return HttpResponse("success")
 
 
@@ -164,8 +169,8 @@ def addsong(request):
 def search(request):
     try:
         if request.GET['keyword'] == "":
-            print request.GET['keyword']
-            print type(request.GET['keyword'])
+            #print request.GET['keyword']
+            #print type(request.GET['keyword'])
             return HttpResponse('请输入要搜索的歌曲\(^o^)/~') 
         keyword =request.GET['keyword']
     except:
@@ -215,8 +220,11 @@ def genSongList(request):
                 print "success insert a song"
 
         return HttpResponse("success")
+    else:
+        return HttpResponse("妈的智障,找不到啊")
 
-
+def dailysonglist(request):
+    return render(request,"comments/dailysonglist.html",{})
 
 def newcomment(request):
     print "start process"
@@ -281,5 +289,4 @@ def replaycom(request):
         m=Replay(name=name,contents=contents,like=0,replays=0,replayobj=replayobj)
         m.save()
         print "success by gedfgst"
-        print "hhhhhhhhhhhhhh"
         return HttpResponse("success")

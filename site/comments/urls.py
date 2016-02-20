@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^gensonglist/','comments.views.genSongList',name="gensonglist"),
     url(r'^search/','comments.views.search',name='search'),
     url(r'^newcomment/','comments.views.newcomment',name='newcomment'),
+    url(r'^dailysonglist/','comments.views.dailysonglist',name='dailysonglist'),
 
     #older functions
  	url(r'^addcomments/','comments.views.addcomment',name='addcomment'),

@@ -83,7 +83,7 @@ class NetEase:
             'type': stype,
             'offset': offset,
             'total': total,
-            'limit': 5
+            'limit': 10
         }
         return self.httpRequest('POST', action, data)
 
@@ -307,18 +307,4 @@ class songResult(object):
         songlist = [songResult(item["id"],item["name"],item["artists"][0]["name"],item["mp3Url"],item["album"]["blurPicUrl"]) for item in res]
         return songlist
         
-if __name__ == '__main__':
-
-    
-    song=NetEase()
-    #song = searchResult.getSongResult(33922175)
-
-    print [ i.name for i in songResult.getSongList(171081652)]
-    #print song.song_detail(402070928)
-	# print '---------------'
-	# print a[0]['name']
-	# author = a[0]['artists']
-	# print author[0]['name']
-	# print a[0]['album']['blurPicUrl']
-	# print a[0]['mp3Url']
-
+# if __name__ == '__main__':

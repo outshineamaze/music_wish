@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <title>制作你的的音乐留言板</title>
+
+	<link rel="stylesheet" href="../../static/css/index.css" type="text/css"  />
+   <script src="../../static/js/jquery.min.js"></script>
+
+  </head>
+  <body>
+
+
+
+<div class ="searchResult" style=" margin-top: 10px;
+    padding: 5px;">
+
+        <form action="" id="comform" method="POST" class="bootstrap-frm" >
+        <h1 id="genform_song">
+        生成首页推荐歌单
+        </h1>
+         <label>
+       <input type="text" id="listlink" name="listlink" placeholder="歌单链接速速复制过来" class="required"/>
+       </label>
+        <label>
+       <input type="text" id="name" name="name" placeholder="歌单叫啥?" class="required"/>
+       </label>
+       <label>
+       <input type="text" id="author" name="author" placeholder="小表砸,你叫啥?" class="required"/>
+       </label>
+        <label>
+			<input type="button" id="sendgetpage" value="提交" class="btn btn-primary"   />
+
+        </form>
+    </div>
+<script>
+$(document).ready(function(){
+
+
+ $("#sendgetpage").click(function(){
+
+    var name = $("#name").val();
+    var listlink = $("#listlink").val();
+    var author = $("#author").val();
+    $.get("../gensonglist/",{"keyword":listlink,'name':name,'author':author},function(ret){
+    	if (ret=='success'){
+      window.location.href='../';
+      }
+      else {
+    		$("#listlink").focus();
+    		alert(ret);
+    	} 
+    	
+    });
+    });
+
+
+		});
+</script>
+
+	
+	
+
+
+	
+  </body>
+</html>

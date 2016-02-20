@@ -19,7 +19,7 @@ import os.path
 
 from os import environ
 #debug = not environ.get("myoutshine", "") 
-DEBUG = True
+DEBUG = False
 
 
 
@@ -33,7 +33,7 @@ if DEBUG :
 else :
     MYSQL_DB = 'music_wish'
     MYSQL_USER = 'root' 
-    MYSQL_PASS = 'zhoulei5014' 
+    MYSQL_PASS = '**********' 
     MYSQL_HOST_M = 'localhost' 
     MYSQL_HOST_S = 'localhost' 
     MYSQL_PORT = '3306' 
@@ -45,7 +45,7 @@ SECRET_KEY = 'r3eb7!#-#kdbk(%*r7e769p7-(1tbpdpi6h1qr%%%v+@3usj^8'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = True
 

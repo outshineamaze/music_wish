@@ -1,4 +1,5 @@
 <ul id="searchResultUl">
+{% if resultlist%}
 {% for item in resultlist%}
 <li>
 <div class="songdetail">
@@ -9,6 +10,7 @@
 	<a class="searchitem"  id="{{item.id}}" info="{{item.name}}  {{item.author}}">生成</a>
 </li>
 {%endfor%}
+{%endif%}
 </ul>
 
 <script>
