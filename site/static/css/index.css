@@ -22,7 +22,13 @@ background-size:cover;
  overflow-x:hidden;
  position:relative;
  background-attachment:fixed;
-font-size: 14px;}
+font-size: 14px;
+
+-moz-user-select: none; /*火狐*/
+-webkit-user-select: none; /*webkit浏览器*/
+-ms-user-select: none; /*IE10*/
+user-select: none;
+}
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     font-family: inherit;
@@ -34,13 +40,187 @@ font-size: 14px;}
     font-size: 18px;
 }
 
+/*播放器样式表
+    start
+*/
+.headerplay{
+  
+  overflow-x:hidden;
+  background-size: cover;
+  font-family: "Open Sans", sans-serif;
+  height:500;
+  
+  
+}
+.music-player {
+  position: relative;
+  width: 300px;
+  height: 290px;
+  margin: 100px auto 200px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  background: #222;
+  text-align: center;
+  overflow: hidden;
+  z-index: 0;
+}
+.music-player img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  z-index: -1;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  -webkit-filter: blur(2px);
+  filter: blur(2px);
+}
+.music-player .info {
+  width: 100%;
+  height: 100px;
+  background: #222;
+  background: rgba(0, 0, 0, 0.8);
+  
+  text-align: center;
+  position: relative;
+}
+.music-player .info .jp-playlist li {
+  display: none;
+}
+.music-player .info .jp-playlist li a {
+  font-size: 30px;
+  font-weight: 300;
+  text-decoration: none;
+  color: #fff;
+  color: rgba(225, 225, 225, 0.4);
+}
+.music-player .info .jp-playlist li a span {
+  font-size: 14px;
+  display: block;
+  margin-top: 10px;
+}
+.music-player .info .jp-playlist li.jp-playlist-current {
+  display: block;
+}
+.music-player .info .jp-playlist li .jp-free-media, .music-player .info .jp-playlist li .jp-playlist-item-remove {
+  display: none;
+}
+.music-player .info .left, .music-player .info .right {
+  width: 25px;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+.music-player .info .right {
+  left: auto;
+  right: 30px;
+}
+.music-player .info [class^="icon-"] {
+ margin: 0 0 10px;
+}
+.music-player .info .center {
+  
+}
+.music-player .progress, .music-player .volume-level {
+  width: 100%;
+  height: 5px;
+  display: block;
+  background: #000;
+  position: absolute;
+  bottom: 0px;
+  cursor: pointer;
+}
+.music-player .progress span, .music-player .volume-level span {
+  position: relative;
+  display: block;
+  background: #ed553b;
+  width: 0%;
+  height: 5px;
+}
+.music-player .progress span:after, .music-player .volume-level span:after {
+  position: absolute;
+  right: -5px;
+  top: -8px;
+  content: "";
+  width: 10px;
+  height: 22px;
+  background: url("../images/tsqwz1N.png") no-repeat center;
+}
+.music-player .controls {
+  text-align: center;
+  width: 100%;
+  height: 190px;
+  background: #982e4b;
+  background: rgba(152, 46, 75, 0.6);
+}
+.music-player .controls .current {
+  font-size: 48px;
+  color: #fff;
+  color: rgba(225, 225, 225, 0.4);
+  padding: 15px 0 20px;
+}
+.music-player .controls .play-controls a {
+  display: inline-block;
+  width: 35px;
+  height: 40px;
+  margin: 0 30px;
+}
+.music-player .controls .volume-level {
+  position: relative;
+  bottom: auto;
+  width: 200px;
+  height: 2px;
+  margin: 30px auto 0;
+  background: rgba(225, 225, 225, 0.3);
+}
+.music-player .controls .volume-level span {
+  height: 2px;
+}
+.music-player .controls .volume-level span:after {
+  right: -11px;
+  top: -8px;
+  width: 22px;
+  height: 22px;
+  background-image: url("../images/V5i67V2.png");
+}
+.music-player .controls .volume-level a {
+  position: absolute;
+  right: -32px;
+  top: -8px;
+  width: 22px;
+}
+.music-player .controls .volume-level a.icon-volume-down {
+  right: auto;
+  left: -25px;
+}
+ [class^="icon-"] {
+ width: 18px;
+ height: 18px;
+ background: url("../images/E09T8tf.png") no-repeat center;
+ display: block;
+}
+
+
+.icon-play {
+  background-image: url("../images/xlBv5aR.png");
+}
+.icon-pause {
+  background-image: url("../images/lIhwduj.png");
+}
+/*播放过样式表
+      end
+*/
 
 /* Çå³ý¸¡¶¯ */
 .clearfix:after{visibility: hidden;display: block;font-size: 0;content:" ";clear: both;height: 0;}
 .clearfix{*zoom:1;
-    min-height: 150px;}
+    }
 .wrap{ margin:0 auto;max-width:600px;position:relative;}
-
+.story_line{
+  min-height: 150px;
+}
 /* ²úÆ·ÁÐ±í */
 .productList ul{ width:100%; }
 .productList ul li{border:solid 1px #e5e6e6; 
@@ -62,8 +242,6 @@ background-color:rgba(255,255,255,.75);}
 	width: 100%;
 	
 }
-
-
 /* 评论表单样式表 */
 #forms{
 width:90%;text-align:center;background-color:rgba(255,255,255,.9);
@@ -78,7 +256,7 @@ max-width:600px;
 
 font: 12px "microsoft yahei", Helvetica, Arial, sans-serif;
 color: #888;
-width:80%;
+width:100%;
 border-top:1px solid #DDD;
 border-bottom:1px solid #DDD;
 
@@ -116,7 +294,7 @@ font-family: "microsoft yahei", Helvetica, Arial, sans-serif;
 font-weight: lighter;
 }
 .bootstrap-frm input{
-border: 1px solid #CCC;
+border: 1px solid #1D1C1C;
 color: #3B3B3B;
 font-weight: lighter;
 height: 30px;
@@ -129,7 +307,8 @@ margin-right: 6px;
 margin-top: 2px;
 outline: 0 none;
 padding: 5px 0px 5px 5px;
-width: 70%;
+width: 80%;
+font-size: 15px;
 border-radius: 4px;
 -webkit-border-radius: 4px;
 -moz-border-radius: 4px;
@@ -139,10 +318,11 @@ box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
 .bootstrap-frm input[type="text"], .bootstrap-frm textarea{
-border: 1px solid #CCC;
+border: 1px solid #585757;
 color: #0E0D0D;;
 font-weight: lighter;
 height: 30px;
+font-size: 15px;
 background-color:#fff;
 *background-color:transparent;
 background-color:rgba(255,255,255,.15);
@@ -152,7 +332,8 @@ margin-right: 6px;
 margin-top: 2px;
 outline: 0 none;
 padding: 5px 0px 5px 5px;
-width: 70%;
+width: 80%;
+
 border-radius: 4px;
 -webkit-border-radius: 4px;
 -moz-border-radius: 4px;
@@ -164,16 +345,21 @@ box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 .bootstrap-frm textarea{
 height:100px;
 padding: 5px 0px 0px 5px;
-width: 70%;
+width: 80%;
 }
 
 .bootstrap-frm textarea:focus{border: 1px solid rgba(79, 170, 240, 0.58);}
 .bootstrap-frm input:focus{border: 1px solid rgba(79, 170, 240, 0.58);}
+.bootstrap-frm input[type="button"]{
+  height: 45px;
+  -webkit-appearance: none;
+}
+
 a.form_button {
 float:left;
 width:30%;
   margin-top:15px;
-  border:1px solid #536376;
+  border:1px solid #222222;
   border-radius:5px;
   text-align:center;
   margin-right: 5px;
@@ -327,7 +513,7 @@ input[type=search] {
 }
 .searchResult li{
 height: 35px;
-margin-bottom: 5px;
+margin-bottom: 10px;
 text-align: left;
 font-size: 20px;
   vertical-align: center;
@@ -347,7 +533,7 @@ width: 40%;
  overflow-x: hidden;
 float: right;
 }
-.searchResult li>a {
+.searchResult li>button {
     display: inline-block;
     padding: 3px 14px;
     background-color: rgba(255, 255, 255, 0.75);
@@ -356,10 +542,16 @@ float: right;
     float: right;
       margin-top: 5px;
           font-size: 15px;
+           -webkit-appearance: none;
 }
 
-.searchResult li>a :hover{
-  background-color: #ddd;
+.searchResult li>button :hover{
+  background-color: #868484;
+  border:none;
+}
+.searchResult li>button :active{
+  background-color: #868484;
+  border:none;
 }
 
 

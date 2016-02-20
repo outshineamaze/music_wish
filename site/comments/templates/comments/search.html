@@ -1,63 +1,53 @@
 <!DOCTYPE html>
 <html lang="utf-8">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-    <title>制作你的的音乐留言板</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
 
-	<link rel="stylesheet" href="../../static/css/index.css" type="text/css"  />
-   <script src="../../static/js/jquery.min.js"></script>
+<title>制作你的的音乐留言板</title>
 
-       <script type="text/javascript" src="../../static/js/scrolltopcontrol.js"></script>
-      <script src="../../static/js/jquery.lightbox_me.js"></script>
-	<style>
-	.up{width:54px;height:54px;background:url(../../static/images/topback.gif) no-repeat 0 0;filter:alpha(Opacity=40);-moz-opacity:0.4;opacity: 0.4;}
-	</style>
-
+<link rel="stylesheet" href="../../static/css/index.css" type="text/css" />
+<script src="../../static/js/jquery.min.js"></script> 
+<!-- <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script> -->
+<script src="../../static/js/jquery.lightbox_me.js"></script>
 
 
 	
-  </head>
+</head>
   <body>
 
-	<div id="mainTop">
-		<div id="searchOut" style="display: block;">
-		<input type="search"  class="SearchInput" placeholder="网易云链接或者直接搜索" >
-		<span  id="searchButton"  style="display: inline; opacity: 1;"></span>
-		</div>
-	</div>
+<div id="mainTop">
+    <div id="searchOut" style="display: block;">
+        <input type="search" class="SearchInput" placeholder="网易云链接或者直接搜索">
+        <span id="searchButton" style="display: inline; opacity: 1;"></span>
+    </div>
+</div>
 
 <div class ="searchResult">
-
 {%include "comments/searchlist.html"%}
 </div>
 
 
- <div id="genpageform" >
-        <form action="" id="comform" method="POST" class="bootstrap-frm" >
+<div id="genpageform">
+    <form action="" id="comform" method="POST" class="bootstrap-frm">
         <h1 id="genform_song">
         </h1>
-        <input type="hidden" name="songid"  id="songid" >
+        <input type="hidden" name="songid" id="songid">
         <label>
-       <input type="text" id="username" name="username" placeholder="小表砸,你叫啥?" class="required"/>
-       </label>
+            <input type="text" id="username" name="username" placeholder="小表砸,你叫啥?" class="required" />
+        </label>
         <label>
             <textarea class="form-control" name="contents" id="songtext" placeholder="留下一些想说的,懂得人自然会明白(∩_∩)(∩_∩)" maxlength="500" required="required"></textarea>
         </label>
-
         <label>
-
-         <div id="actions">
-                        <a class="close form_button sprited" style="float:left;margin-left:10%" id="cancel" href="#">取消</a>
-                        <a class="form_button sprited" style="float:right;margin-right:10%" id="sendgetpage" href="#">生成</a>
-                    </div>
+            <div id="actions">
+                <a class="close form_button sprited" style="float:left;margin-left:10%" id="cancel" href="#">取消</a>
+                <a class="form_button sprited" style="float:right;margin-right:10%" id="sendgetpage" href="#">生成</a>
+            </div>
         </label>
-
-
-        </form>
-    </div>
+    </form>
+</div>
 <script>
 		$(document).ready(function(){
 				
@@ -90,11 +80,5 @@
 
 		});
 </script>
-
-	
-	
-
-
-	
   </body>
 </html>

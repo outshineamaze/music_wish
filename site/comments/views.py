@@ -116,7 +116,8 @@ def song(request,pk):
     except (EmptyPage, InvalidPage):
         posts = paginator.page(paginator.num_pages)
     print "succcs  get post object "
-    context = {"song":song,'comments':posts}
+    song_pic  = song.song_pic +"?param=130y130"
+    context = {"song":song,'comments':posts,"song_pic":song_pic}
     if not isajax:
         print "return songhtml"
         return  render(request,'comments/song.html',context)

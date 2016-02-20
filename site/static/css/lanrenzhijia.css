@@ -165,32 +165,11 @@ html {
  background: url("../images/E09T8tf.png") no-repeat center;
  display: block;
 }
-.icon-heart {
-	background-image: url("../images/E09T8tf.png");
-}
-.icon-shuffle{
-	background-image:url("../images/AQAxRxS.png");}
-.icon-repeat {
-	background-image: url("../images/338F8MX.png");
-}
-.icon-share {
-	background-image: url("../images/PGIC6ME.png");
-}
-.icon-previous {
-	background-image: url("../images/LIqj0nr.png");
-}
+
+
 .icon-play {
 	background-image: url("../images/xlBv5aR.png");
 }
 .icon-pause {
 	background-image: url("../images/lIhwduj.png");
-}
-.icon-next {
-	background-image: url("../images/Mb6Nzj5.png");
-}
-.icon-volume-up {
-	background-image: url("../images/qqdoddi.png");
-}
-.icon-volume-down {
-	background-image: url("../images/3iirf2f.png");
 }

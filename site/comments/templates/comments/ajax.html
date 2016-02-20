@@ -1,32 +1,28 @@
 <div class="productList wrap clearfix" id="ul">
-    <ul class="clearfix" id="postlist">
-
-        {%for comment in comments %}
-      <li id="{{comment.id}}" class='commenitem'>
-	
-	  <a>
-		<h4> {{comment.name}}</h4>
-		<p  id="content">{{comment.contents}}</p>
-	  </a>
-	   <div class="msg">          	
-          	<span class="time">{{comment.updated|date:'Y日m月d日H点'}}</span>
-          </div>
+	<ul class="clearfix" id="postlist">
+		{%for comment in comments %}
+		<li id="{{comment.id}}" class='commenitem'>
+			<a>
+				<h4> {{comment.name}}</h4>
+				<p id="content">{{comment.contents}}</p>
+			</a>
+			<div class="msg">
+				<span class="time">{{comment.updated|date:'Y日m月d日H点'}}</span>
+			</div>
 		</li>
-    {% endfor %}
-</ul>
-</div> 
-		<div class="pagenavigation">
-				
-		<ul class="pager">
-        {% if comments.has_previous %}
-		  <li><a id="{{ comments.previous_page_number }}" class="btn_comment">上一页</a></li>
-        {% endif %}
-        {% if comments.has_next %}
-		  <li><a id="{{ comments.next_page_number }}" class='btn_comment'>下一页</a></li>
+		{% endfor %}
+	</ul>
+</div>
+<div class="pagenavigation">
+	<ul class="pager">
+		{% if comments.has_previous %}
+		<li><a id="{{ comments.previous_page_number }}" class="btn_comment">上一页</a></li>
+		{% endif %} 
+		{% if comments.has_next %}
+		<li><a id="{{ comments.next_page_number }}" class='btn_comment'>下一页</a></li>
 		{% endif %}
-		</ul>
-		</div>
-
+	</ul>
+</div>
 
 <script>
 		$(document).ready(function(){
@@ -42,9 +38,6 @@
 
 		 });
 	});
-
-
-
 	   $('.commenitem').click(function(){ 
 　　　　console.log(this.id); 
 		$("#replayobjid").val(this.id);
@@ -62,5 +55,4 @@
 　　}); 
 
 		});
-
 	</script>

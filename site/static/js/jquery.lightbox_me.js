@@ -204,10 +204,10 @@
     $.fn.lightbox_me.defaults = {
 
         // animation
-        appearEffect: "fadeIn",
+        appearEffect: "slideDown",
         appearEase: "",
-        overlaySpeed: 250,
-        lightboxSpeed: 300,
+        overlaySpeed: 200,
+        lightboxSpeed: 200,
 
         // close
         closeSelector: ".close",

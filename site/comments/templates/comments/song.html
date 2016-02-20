@@ -1,88 +1,81 @@
 <!DOCTYPE html>
 <html lang="utf-8">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-    <title>{{song.name}}-{{song.author}}来自梦很想家制作的音乐留言板</title>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+  <title>{{song.name}}-{{song.author}}来自梦很想家制作的音乐留言板</title>
+  <link rel="stylesheet" href="../../static/css/index.css" type="text/css" />
+<!--   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script> -->
+   <script src="../../static/js/jquery.min.js"></script> 
+  <style>
+    .up {
+      width: 54px;
+      height: 54px;
+      background: url(../../static/images/topback.gif) no-repeat 0 0;
+      filter: alpha(Opacity=40);
+      -moz-opacity: 0.4;
+      opacity: 0.4;
+    }
+  </style>
 
-    <!-- Bootstrap -->
-   <!-- 新 Bootstrap 核心 CSS 文件 -->
-<!-- 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
-	<link rel="stylesheet" href="../../static/css/index.css" type="text/css"  />
-      <link rel="stylesheet" href="../../static/css/lanrenzhijia.css" type="text/css" />
-	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-   <script src="../../static/js/jquery.min.js"></script>
-   <!--  <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
-    
-	<style>
-	.up{width:54px;height:54px;background:url(../../static/images/topback.gif) no-repeat 0 0;filter:alpha(Opacity=40);-moz-opacity:0.4;opacity: 0.4;}
-	</style>
 
-      <script type="text/javascript" src="../../static/js/scrolltopcontrol.js"></script>
 
-	
-  </head>
+
+</head>
   <body>
 
-	<div class="headerplay">
+<div class="headerplay">
   <div class="music-player">
 
-  <div class="info">
-    <div class="center">
-      <div class="jp-playlist">
-        <ul>
-          <li></li>
-        </ul>
+    <div class="info">
+      <div class="center">
+        <div class="jp-playlist">
+          <ul>
+            <li></li>
+          </ul>
+        </div>
       </div>
-    </div>   
-    <div class="progress jp-seek-bar"> <span class="jp-play-bar" style="width: 0%"></span> </div>
-  </div>
-  <div class="controls">
-    <div class="current jp-current-time">00:00</div>
-    <div class="play-controls">
-    
-        <a href="javascript:;" class="icon-play jp-play" id="player_play" title="play" ></a>
+      <div class="progress jp-seek-bar"> <span class="jp-play-bar" style="width: 0%"></span> </div>
+    </div>
+    <div class="controls">
+      <div class="current jp-current-time">00:00</div>
+      <div class="play-controls">
+
+        <a href="javascript:;" class="icon-play jp-play" id="player_play" title="play"></a>
         <a href="javascript:;" class="icon-pause jp-pause" title="pause"></a>
 
-     </div>
-    
-  <div id="jquery_jplayer" class="jp-jplayer"></div>
-</div>
-</div>
+      </div>
 
+      <div id="jquery_jplayer" class="jp-jplayer"></div>
+    </div>
+  </div>
 
    
+<div class="productList wrap clearfix" id="song_des">
+  <ul class="clearfix story_line">
+    <li>
+      <a>
+        <h4>{{song.story_author}}</h4>
+        <p id="content">{{song.song_story}}</p>
+      </a>
+    </li>
+  </ul>
+</div>
 
- <div class="productList wrap clearfix" id="song_des" >
-    <ul class="clearfix" >
-      <li >
-	  <a>
-		<h4>{{song.story_author}}</h4>
-		<p  id="content">{{song.song_story}}</p>
-	  </a>
-	  
-		</li>
-  
-</ul>
-</div> 
+<div class="des_board">
 
-	
-<div  class="des_board">
-		
-			<h1>
+  <h1>
 				{{song.story_author}}
 			</h1>
-			<p>{{song.song_story}}</p>
-			 <div class="msg">          	
-          	<span class="time">{{song.updated|date:'Y日m月d日H点'}}</span>
-          </div>
-		</li>
-			
-         
-</div>	
-	
+  <p>{{song.song_story}}</p>
+  <div class="msg">
+    <span class="time">{{song.updated|date:'Y日m月d日H点'}}</span>
+  </div>
+  </li>
+
+
+</div>
 
 <div id="comment_contain">
 {% include 'comments/ajax.html' %}
@@ -227,7 +220,7 @@ $(document).ready(function(){
     
     mp3:"{{song.song_url}}",
     
-      poster: "{{song.song_pic}}"
+      poster: "{{ song_pic }}"
     }];
   
   var cssSelector = {
@@ -247,6 +240,8 @@ $(document).ready(function(){
 });
 
 </script>
+
+ <script type="text/javascript" src="../../static/js/scrolltopcontrol.js"></script>
 	<script>
 	function scrollcomment(pos){
                 	$("html,body").animate({

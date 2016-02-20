@@ -1,20 +1,15 @@
 <ul id="searchResultUl">
-{% if resultlist%}
-{% for item in resultlist%}
-<li>
-<div class="songdetail">
-	<span class="song_name">{{item.name}}  {{item.author}}</span>
-	<!-- <span class="song_author">{{item.author}}</span> -->
-	</div>
+	{% if resultlist%} {% for item in resultlist%}
+	<li>
+		<div class="songdetail">
+			<span class="song_name">{{item.name}}  {{item.author}}</span>
+		</div>
 
-	<a class="searchitem"  id="{{item.id}}" info="{{item.name}}  {{item.author}}">生成</a>
-</li>
-{%endfor%}
-{%endif%}
+		<button class="searchitem" id="{{item.id}}" info="{{item.name}}  {{item.author}}">生成</button>
+	</li>
+	{%endfor%} {%endif%}
 </ul>
-
 <script>
-	
 	  $(".searchitem").click(function(){
 	  	console.log("start genpage....");
 	  		var songid=this.id;
@@ -31,10 +26,5 @@
 	            $('#genpageform').find('input:first').focus()
 	            }
 	        });		  
-
     });
-
-
-
-
 </script>
