@@ -8,14 +8,17 @@
 <title>制作你的的音乐留言板</title>
 
 <link rel="stylesheet" href="../../static/css/index.css" type="text/css" />
-<script src="../../static/js/jquery.min.js"></script> 
+
 <!-- <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script> -->
-<script src="../../static/js/jquery.lightbox_me.js"></script>
+
 
 
 	
 </head>
   <body>
+
+<div id="mask" style="background-color:rgba(0,0,0,.5);width:100%;height:3000px;position:absolute;z-index:9999;top:0;left:0;">
+</div>
 
 <div id="mainTop">
     <div id="searchOut" style="display: block;">
@@ -25,7 +28,17 @@
 </div>
 
 <div class ="searchResult">
-{%include "comments/searchlist.html"%}
+<ul id="searchResultUl">
+    {% if resultlist%} {% for item in resultlist%}
+    <li>
+        <div class="songdetail">
+            <span class="song_name">{{item.name}}  {{item.author}}</span>
+        </div>
+
+        <button class="searchitem" id="{{item.id}}" info="{{item.name}}  {{item.author}}">生成</button>
+    </li>
+    {%endfor%} {%endif%}
+</ul>
 </div>
 
 
@@ -42,12 +55,42 @@
         </label>
         <label>
             <div id="actions">
-                <a class="close form_button sprited" style="float:left;margin-left:10%" id="cancel" href="#">取消</a>
-                <a class="form_button sprited" style="float:right;margin-right:10%" id="sendgetpage" href="#">生成</a>
+                <a class="close form_button sprited" style="float:left;margin-left:10%" id="cancel" >取消</a>
+                 <a class="form_button sprited" style="display:none; float:right;margin-right:10%" id="sendstate" >正在生成...</a>
+                <a class="form_button sprited" style="float:right;margin-right:10%" id="sendgetpage" >生成</a>
             </div>
         </label>
     </form>
 </div>
+<script src="../../static/js/jquery.min.js"></script> 
+
+  <script>
+$(document).ready(function(){
+//页面淡入淡出
+  $("#mask").fadeOut("slow");
+});</script>
+
+
+<script src="../../static/js/jquery.lightbox_me.js"></script>
+<script>
+      $(".searchitem").click(function(){
+        console.log("start genpage....");
+            var songid=this.id;
+            $("#songid").val(songid);
+            console.log($(this).attr("info"));
+            $("#genform_song").html($(this).attr("info"));
+
+          $('#genpageform').lightbox_me({
+            centered: true,
+            overlaySpeed:100,
+            overlayCSS:{background: 'black',
+            opacity: .8},
+            onLoad: function() {
+                $('#genpageform').find('input:first').focus()
+                }
+            });       
+    });
+</script>
 <script>
 		$(document).ready(function(){
 				
@@ -66,12 +109,19 @@
     var username = $("#username").val();
     var message = $("#songtext").val();
     console.log(songid);
+   $("#sendgetpage").hide();
+   $("#sendstate").show();
     $.get("addsong/",{'songid':songid,'username':username,'contents':message},function(ret){
     	if (ret=='error') {
     		$("#username").focus();
+            $("#sendstate").hide();
+            $("#sendgetpage").show();
+
     	} 
     	else {
-     $('#genpageform').trigger('close');
+     
+      $("#mask").fadeIn("slow");
+      $('#genpageform').trigger('close');
       window.location.href='../../song/'+ret;
       }
     });

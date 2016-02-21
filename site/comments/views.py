@@ -241,7 +241,7 @@ def newcomment(request):
             # print 'name:'+name
             # print 'comments:'+contents
 
-            if len(name)<1 or len(contents)<5:
+            if len(name)<1 or len(contents)<3:
                 return HttpResponse('error1')
             elif len(name)>50 or len(contents)>400:
                 return HttpResponse("error2")

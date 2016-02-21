@@ -1,19 +1,5 @@
 /*
 * $ lightbox_me
-* By: Buck Wilson
-* Version : 2.4
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
 */
 
 
@@ -27,57 +13,43 @@
                 opts = $.extend({}, $.fn.lightbox_me.defaults, options),
                 $overlay = $(),
                 $self = $(this),
-                $iframe = $('<iframe id="foo" style="z-index: ' + (opts.zIndex + 1) + ';border: none; margin: 0; padding: 0; position: absolute; width: 100%; height: 100%; top: 0; left: 0; filter: mask();"/>');
+                $iframe = $('<iframe id="foo" style="z-index: ' + (opts.zIndex + 1) + ';border: none; margin: 0; padding: 0; position: absolute; width:100%; top: 0; left: 0; filter: mask();"/>');
 
             if (opts.showOverlay) {
-                //check if there's an existing overlay, if so, make subequent ones clear
-               var $currentOverlays = $(".js_lb_overlay:visible");
-                if ($currentOverlays.length > 0){
-                    $overlay = $('<div class="lb_overlay_clear js_lb_overlay"/>');
-                } else {
-                    $overlay = $('<div class="' + opts.classPrefix + '_overlay js_lb_overlay"/>');
-                }
+                  $overlay = $('<div class="' + opts.classPrefix + '_overlay js_lb_overlay"/>');
             }
-
+  console.log("succee add overlay");
             /*----------------------------------------------------
                DOM Building
             ---------------------------------------------------- */
             $('body').append($self.hide()).append($overlay);
 
-
+            console.log("DOM Building");
             /*----------------------------------------------------
                Overlay CSS stuffs
             ---------------------------------------------------- */
 
-            // set css of the overlay
-            if (opts.showOverlay) {
-                setOverlayHeight(); // pulled this into a function because it is called on window resize.
-                $overlay.css({ position: 'absolute', width: '100%', top: 0, left: 0, right: 0, bottom: 0, zIndex: (opts.zIndex + 2), display: 'none' });
-				if (!$overlay.hasClass('lb_overlay_clear')){
-                	$overlay.css(opts.overlayCSS);
-                }
-            }
 
+console.log("set css of the overlay");
             /*----------------------------------------------------
                Animate it in.
             ---------------------------------------------------- */
                //
             if (opts.showOverlay) {
-                $overlay.fadeIn(opts.overlaySpeed, function() {
+                 setOverlayHeight(); 
+                    $overlay.css({ position: 'absolute',height:"3000px", width: '100%', top: 0, left: 0, right: 0, bottom: 0, zIndex: (opts.zIndex + 2), display: 'block' });
+                $overlay.css(opts.overlayCSS);
                     setSelfPosition();
                     $self[opts.appearEffect](opts.lightboxSpeed, function() { setOverlayHeight(); setSelfPosition(); opts.onLoad()});
-                });
+                
             } else {
                 setSelfPosition();
                 $self[opts.appearEffect](opts.lightboxSpeed, function() { opts.onLoad()});
             }
-
+console.log(" Animate it in.");
             /*----------------------------------------------------
                Hide parent if parent specified (parentLightbox should be jquery reference to any parent lightbox)
             ---------------------------------------------------- */
-            if (opts.parentLightbox) {
-                opts.parentLightbox.fadeOut(200);
-            }
 
 
             /*----------------------------------------------------
@@ -99,12 +71,9 @@
             $self.bind('close', closeLightbox);
             $self.bind('reposition', setSelfPosition);
 
+console.log(" Bind Events");
 
-
-            /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-              -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
-
-
+  
             /*----------------------------------------------------
                Private Functions
             ---------------------------------------------------- */
@@ -115,13 +84,10 @@
                 if (opts.destroyOnClose) {
                     $self.add($overlay).remove();
                 } else {
-                    $self.add($overlay).hide();
+                    $self.hide();
+                    $overlay.remove();
                 }
 
-                //show the hidden parent lightbox
-                if (opts.parentLightbox) {
-                    opts.parentLightbox.fadeIn(200);
-                }
                 if (opts.preventScroll) {
                     $('body').css('overflow', '');
                 }
@@ -159,11 +125,6 @@
                 }
             }
 
-
-            /* Set the position of the modal'd window ($self)
-                    : if $self is taller than the window, then make it absolutely positioned
-                    : otherwise fixed
-            */
             function setSelfPosition() {
                 var s = $self[0].style;
 
@@ -206,7 +167,7 @@
         // animation
         appearEffect: "slideDown",
         appearEase: "",
-        overlaySpeed: 200,
+        overlaySpeed: 0,
         lightboxSpeed: 200,
 
         // close
@@ -226,7 +187,7 @@
 
         // style
         classPrefix: 'lb',
-        zIndex: 999,
+        zIndex: 9999,
         centered: false,
         modalCSS: {top: '40px'},
         overlayCSS: {background: 'black', opacity: .3}

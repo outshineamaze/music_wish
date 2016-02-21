@@ -4,10 +4,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
-  <title>{{song.name}}-{{song.author}}来自梦很想家制作的音乐留言板</title>
+  <title>{{song.name}}-来自{{song.story_author}}制作的音乐留言板</title>
   <link rel="stylesheet" href="../../static/css/index.css" type="text/css" />
-<!--   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script> -->
-   <script src="../../static/js/jquery.min.js"></script> 
+ 
   <style>
     .up {
       width: 54px;
@@ -24,6 +23,10 @@
 
 </head>
   <body>
+
+<div id="mask" style="background-color:rgba(0,0,0,7);width:100%;height:3000px;position:absolute;z-index:9999;top:0;left:0;">
+</div>
+
 
 <div class="headerplay">
   <div class="music-player">
@@ -76,7 +79,18 @@
 
 
 </div>
+</br>
 
+
+  <script src="../../static/js/jquery.min.js"></script> 
+  <script>
+$(document).ready(function(){
+//页面淡入淡出
+
+  $("#mask").fadeOut("slow");
+
+});
+    </script>
 <div id="comment_contain">
 {% include 'comments/ajax.html' %}
 </div>
@@ -96,11 +110,10 @@
 		
 		<input id="name"  type="text" name="name" placeholder="你的大名" required="required" maxlength="15"  />
 		</label>
-		
-
+	
 		<label>
 		<input type="hidden" id="replayobjid" value=""  />
-		
+		<input type="button" id="sendstate" value="不要方,马上好..." class="sendstate"   />
 		<input type="button" id="sendcomment" value="提交" class="btn btn-primary"   />
 		
 		
@@ -110,7 +123,13 @@
 		</form>
 	</div>
 
+  <div id="returnstate">
+    <h1>谢谢</h1></br><h4>小生无力回报,但愿以身相许</h1></br><h6>继续留言请刷新</h6>
+  </div>
 
+</br></br></br>
+ 
+<div class="footer_contain"> 
 	<div class="footer_btn">
 		<button type="button" class="btn_yu" id='btn_comment'>
 		 留言
@@ -119,12 +138,28 @@
 		 生成你的音乐留言板
 		</button>
 	</div>
+  </div>
 
 
 	<script>
 
 		$(document).ready(function(){
+
+if ( $(window).height() >= $(document.body).height()) {
+       console.log($(window).height());
+        console.log($(document.body).height());
+        $(".footer_contain").css("position" ,"fixed");
+    }else{
+ $(".footer_contain").css("position", 'absolute');
+
+       console.log($(window).height());
+        console.log( $(document.body).height());
+    }
+
+
+
 			$('#genpage').click(function(){
+         $("#mask").fadeIn("slow");
 				window.location.href='../../';
 			});
 
@@ -149,37 +184,48 @@
     var name = $("#name").val();
     var contents =$("#message").val();
     var replayobj = $("#replayobjid").val();
+    
     if(contents=="" | name==""){
     	console.log("blank input");
     	$("#name").focus();
+     
 
     }
     else{
+       $("#sendcomment").hide();
+    $("#sendstate").show();
+     
     $.get("/newcomment",{'parentid':{{song.id}},'name':name,'contents':contents,'parent_comment':replayobj },function(ret){
     	
     if(ret=="success"){
     	var page=1;
     	console.log("success add comment");
+
  		$.get("",{'page':page},function(ret){
     	$("#comment_contain").html(ret);
-		$("html,body").animate({
-			scrollTop:$("#song_des").offset().top},500);
+       $('#forms').trigger('close');
+      $("html,body").animate({
+      scrollTop:$("#song_des").offset().top},500);
+      
+       $("#sendstate").hide();
+         $("#sendcomment").show();
+         $("#message").val("");
+         $("#name").val("");
+         $("#replayobjid").val();
+          
+		
 		 });
-
-     $("#forms").html('<h1>谢谢</h1></br><h4>小生无力回报,但愿以身相许</h1>').delay(2000).queue(function(){
-       $('#forms').trigger('close');});}
+    }
      else {
      	console.log(ret);
     		$("#name").focus();
+        $("#sendstate").hide();
+         $("#sendcomment").show();
+    
     	}
-
-
     });
 }
-
     });
-
-
 
 	   $('#btn_comment').click(function(){ 
 	   	$("#replayobjid").val('0');
@@ -245,13 +291,14 @@ $(document).ready(function(){
 	<script>
 	function scrollcomment(pos){
                 	$("html,body").animate({
-					scrollTop:$("#song_des").offset().top},500);
+					scrollTop:100},400);
             }
 
 	 $("#player_play").click(function(){
 		scrollcomment();
 		  
             });
+
 	</script>
 	
   </body>
