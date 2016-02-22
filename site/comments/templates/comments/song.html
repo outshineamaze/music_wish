@@ -144,16 +144,23 @@ $(document).ready(function(){
 	<script>
 
 		$(document).ready(function(){
-
-if ( $(window).height() >= $(document.body).height()) {
+var winheight = $(window).height(),
+documentheight =  $(document.body).height();
+if (winheight >= documentheight) {
        console.log($(window).height());
         console.log($(document.body).height());
+        console.log("fixed");
         $(".footer_contain").css("position" ,"fixed");
-    }else{
+    }
+    else if(winheight < documentheight){
+      console.log("absolute");
  $(".footer_contain").css("position", 'absolute');
 
        console.log($(window).height());
         console.log( $(document.body).height());
+    }
+    else{
+        $(".footer_contain").css("position" ,"fixed");
     }
 
 

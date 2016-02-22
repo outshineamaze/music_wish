@@ -26,10 +26,13 @@
         <span id="searchButton" style="display: inline; opacity: 1;"></span>
     </div>
 </div>
-
-<div class ="searchResult">
+ {% if resultlist%}
+<div class ="searchResult" id="serachResult">
+<div class="sectionheader">
+<h4>今日推荐</h4>
+</div>
 <ul id="searchResultUl">
-    {% if resultlist%} {% for item in resultlist%}
+    {% for item in resultlist%}
     <li>
         <div class="songdetail">
             <span class="song_name">{{item.name}}  {{item.author}}</span>
@@ -37,9 +40,49 @@
 
         <button class="searchitem" id="{{item.id}}" info="{{item.name}}  {{item.author}}">生成</button>
     </li>
-    {%endfor%} {%endif%}
+    {%endfor%} 
 </ul>
 </div>
+{%endif%}
+{% if gensonglist%}
+<div class ="searchResult" id="addhistory">
+<div class="sectionheader">
+<h4>近期你生成</h4>
+</div>
+<ul id="searchResultUl">
+
+     {% for item in gensonglist%}
+    <li>
+        <div class="songdetail">
+            <span class="song_name">{{item.name}}  {{item.song_author}}</span>
+        </div>
+
+       <a  href="../song/{{item.id}}">看看</a>
+    </li>
+    {%endfor%} 
+</ul>
+</div>
+{%endif%}
+
+{% if comsonglist%}
+<div class ="searchResult" id="comhistory">
+<div class="sectionheader">
+<h4>近期你评论的</h4>
+</div>
+<ul id="searchResultUl">
+
+     {% for item in comsonglist%}
+    <li>
+        <div class="songdetail">
+            <span class="song_name">{{item.name}}  {{item.story_author}}</span>
+        </div>
+
+        <a  href="../song/{{item.id}}">看看</a>
+    </li>
+    {%endfor%} 
+</ul>
+</div>
+{%endif%}
 
 
 <div id="genpageform">
@@ -99,7 +142,7 @@ $(document).ready(function(){
 			console.log($(".SearchInput").val());
 			key = $(".SearchInput").val();
 			$.get("/search",{'keyword':key},function(ret){
-			$(".searchResult").html(ret);
+			$("#serachResult").html(ret);
 			});
 		        });
 

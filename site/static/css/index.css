@@ -516,8 +516,20 @@ input[type=search] {
   background-color: rgba(255,255,255,.5);
     text-align: center;
 }
+.sectionheader{
+  width: 100%;
+  display: inline-block;
+  font-size: 20px;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.44);
+
+}
+.sectionheader h4{
+  float: left;
+     margin: 5px 10px;
+
+}
 .searchResult ul{
-  margin: 20px 0px;
+ 
   position: relative;
   width: 90%;
   display: inline-block;
@@ -544,7 +556,7 @@ width: 40%;
  overflow-x: hidden;
 float: right;
 }
-.searchResult li>button {
+.searchResult li>button ,.searchResult li>a{
     display: inline-block;
     padding: 3px 14px;
     background-color: rgba(255, 255, 255, 0.75);
@@ -555,6 +567,7 @@ float: right;
           font-size: 15px;
            -webkit-appearance: none;
 }
+
 
 /* .searchResult li>button :hover{
   background-color: #868484;

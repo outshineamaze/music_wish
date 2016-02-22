@@ -45,15 +45,34 @@ def home(request):
         return HttpResponse(html)
 def index(request):
     print "start process"
+    print(request.COOKIES.get("sessionid",'none'))
+    gensonglist=[]
+    context={}
+    if not request.session.get('gensonglist'):
+        request.session['gensonglist']=[]
+        print "not get gensonglist"
+    else :
+        gensongidlist= request.session.get('gensonglist')
+        print "get songlist"
+        print gensongidlist
+        gensonglist = Song.objects.filter(id__in =gensongidlist).order_by("-timestamp")[0:10]
+        context["gensonglist"]=gensonglist
+    if not request.session.get('comsonglist'):
+        request.session['comsonglist']=[]
+        print "not get comsonglist"
+    else :
+        comsongidlist= request.session.get('comsonglist')
+        print "get songlist"
+        print comsongidlist
+        comsonglist = Song.objects.filter(id__in =comsongidlist).order_by("-timestamp")[0:10]
+        context["comsonglist"]=comsonglist
     if SongList.objects.all():
         songlist=SongList.objects.all().order_by("-timestamp")[0]
         songids = songlist.songlist.split(",")
         songlistobj = SongInfo.objects.filter(id__in=songids)[0:10]
-        context = {"resultlist":songlistobj}
+        context["resultlist"]=songlistobj
         print "succcs"
-        return render(request,'comments/search.html',context)
-    else:
-        return render(request,'comments/search.html',{})
+    return render(request,'comments/search.html',context)
 
 
 
@@ -94,6 +113,10 @@ def gettoken(request):
     return HttpResponse('{ "uptoken": "'+token+'"}')
 
 def song(request,pk):
+
+    # if not request.session.get('comsonglist'):
+    #     request.session['comsonglist']=[]
+    #     print "not get comsonglist"
     song = Song.objects.get(id=pk)
     comments = Comment.objects.filter(parent_song=pk).order_by('-timestamp')
 
@@ -131,6 +154,7 @@ def song(request,pk):
 
 
 def addsong(request):
+    print(request.COOKIES.get("sessionid",'none'))
     try:
         songid = request.GET['songid']
         story_author= request.GET['username']
@@ -162,6 +186,10 @@ def addsong(request):
         song= Song(name=name,song_pic=song_pic,song_url=song_url,song_author=authorename,song_story=story,story_author=story_author)
         song.save()
         print song.id
+        havegen_songlist =request.session.get("gensonglist")
+        havegen_songlist.append(song.id)
+        request.session['gensonglist']=havegen_songlist
+        print havegen_songlist
         return HttpResponse(song.id)
     except:
         return HttpResponse("error")
@@ -169,6 +197,7 @@ def addsong(request):
 
 def search(request):
     try:
+
         if request.GET['keyword'] == "":
             #print request.GET['keyword']
             #print type(request.GET['keyword'])
@@ -247,6 +276,12 @@ def newcomment(request):
                 return HttpResponse("error2")
             m=Comment(parent_song_id=songid,name=name,contents=contents,parent_comment=replayobj)
             m.save()
+            if request.session.get("comsonglist"):
+                comsonglist = request.session.get("comsonglist")
+                comsonglist.append(songid)
+                request.session['comsonglist']=comsonglist
+            else:
+                 request.session['comsonglist']=[songid]
             print "success add replay commment "
             return HttpResponse("success")
         else:
@@ -263,6 +298,12 @@ def newcomment(request):
                 return HttpResponse("error2")
             m=Comment(parent_song_id=songid,name=name,contents=contents)
             m.save()
+            if request.session.get("comsonglist"):
+                comsonglist = request.session.get("comsonglist")
+                comsonglist.append(songid)
+                request.session['comsonglist']=comsonglist
+            else:
+                 request.session['comsonglist']=[songid]
             print "success by direct add comment "
             return HttpResponse("success")
     else:
